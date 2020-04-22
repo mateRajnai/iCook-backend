@@ -4,22 +4,29 @@ import com.coodcool.icook.dao.FavoriteRecipeIdsDao;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
 @Qualifier("daoMem")
 public class FavoriteRecipeIdsDaoMem implements FavoriteRecipeIdsDao {
-    Set<String> favoriteRecipeIds = new HashSet<>();
+    Set<String> favoriteRecipeIds;
 
-    @Override
-    public Set<String> getAll() {
-        return this.favoriteRecipeIds;
+    public FavoriteRecipeIdsDaoMem(Set<String> favoriteRecipeIds) {
+        this.favoriteRecipeIds = favoriteRecipeIds;
     }
 
     @Override
-    public void update(String id) {
+    public List<String> getAll() {
+        return new ArrayList<String>(this.favoriteRecipeIds);
+    }
+
+    @Override
+    public List<String> update(String id) {
         if (favoriteRecipeIds.contains(id)) favoriteRecipeIds.remove(id);
         else favoriteRecipeIds.add(id);
+        return new ArrayList<String>(this.favoriteRecipeIds);
     }
 }

@@ -1,8 +1,8 @@
 package com.coodcool.icook.dao;
 
-import java.util.Set;
+import java.util.List;
 
 public interface FavoriteRecipeIdsDao {
-    Set<String> getAll();
-    void update(String id);
+    List<String> getAll();
+    List<String> update(String id);
 }

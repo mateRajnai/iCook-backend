@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Set;
+import java.util.List;
 
 @RestController
 @RequestMapping("/favorites")
@@ -19,12 +19,14 @@ public class FavoritesController {
     }
 
     @GetMapping("")
-    public Set<String> getFavoriteRecipeIds() {
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<String> getFavoriteRecipeIds() {
         return this.favoriteRecipeIdsDao.getAll();
     }
 
-    @PostMapping("/update")
-    public void updateFavoriteRecipeIds(@RequestBody String id) {
-        this.favoriteRecipeIdsDao.update(id);
+    @PutMapping("")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public List<String> updateFavoriteRecipeIds(@RequestBody String id) {
+       return this.favoriteRecipeIdsDao.update(id);
     }
 }
