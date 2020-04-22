@@ -15,14 +15,15 @@ public class CommentController {
     @Autowired
     private CommentDao commentDao;
 
-
-
     @GetMapping("/{id}/comments")
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<Comment> getCommentsBy(@PathVariable("id") String id) {
+
         return this.commentDao.getCommentsBy(id);
     }
 
     @PostMapping("/{id}/comments")
+    @CrossOrigin(origins = "http://localhost:3000")
     public List<Comment> addComment(@RequestBody Comment comment, @PathVariable("id") String id) {
         comment.setSubmissionTime(LocalDateTime.now());
         this.commentDao.addComment(comment);
