@@ -19,13 +19,13 @@ public class FavoritesController {
     }
 
     @GetMapping("")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://icook.netlify.app")
     public List<String> getFavoriteRecipeIds() {
         return this.favoriteRecipeIdsDao.getAll();
     }
 
     @PutMapping("")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://icook.netlify.app")
     public List<String> updateFavoriteRecipeIds(@RequestBody String id) {
        return this.favoriteRecipeIdsDao.update(id);
     }
