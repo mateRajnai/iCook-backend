@@ -14,8 +14,8 @@ import java.util.Set;
 public class FavoriteRecipeIdsDaoMem implements FavoriteRecipeIdsDao {
     Set<String> favoriteRecipeIds;
 
-    public FavoriteRecipeIdsDaoMem(Set<String> favoriteRecipeIds) {
-        this.favoriteRecipeIds = favoriteRecipeIds;
+    public FavoriteRecipeIdsDaoMem() {
+        this.favoriteRecipeIds = new HashSet<>();
     }
 
     @Override
