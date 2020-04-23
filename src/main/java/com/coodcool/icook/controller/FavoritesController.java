@@ -18,6 +18,9 @@ public class FavoritesController {
         this.favoriteRecipeIdsDao = favoriteRecipeIdsDao;
     }
 
+    public FavoritesController() {
+    }
+
     @GetMapping("")
     @CrossOrigin(origins = "https://icook.netlify.app")
     public List<String> getFavoriteRecipeIds() {
