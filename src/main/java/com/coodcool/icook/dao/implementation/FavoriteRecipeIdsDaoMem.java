@@ -1,4 +1,4 @@
-package com.coodcool.icook.dao.mem;
+package com.coodcool.icook.dao.implementation;
 
 import com.coodcool.icook.dao.FavoriteRecipeIdsDao;
 import org.springframework.beans.factory.annotation.Qualifier;
