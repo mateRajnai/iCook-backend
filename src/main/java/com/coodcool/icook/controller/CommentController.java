@@ -16,14 +16,14 @@ public class CommentController {
     private CommentDao commentDao;
 
     @GetMapping("/{id}/comments")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://icook.netlify.app")
     public List<Comment> getCommentsBy(@PathVariable("id") String id) {
 
         return this.commentDao.getCommentsBy(id);
     }
 
     @PostMapping("/{id}/comments")
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "https://icook.netlify.app")
     public List<Comment> addComment(@RequestBody Comment comment, @PathVariable("id") String id) {
         comment.setSubmissionTime(LocalDateTime.now());
         this.commentDao.addComment(comment);
