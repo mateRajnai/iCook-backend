@@ -18,6 +18,9 @@ public class FavoritesController {
         this.favoriteRecipeIdsDao = favoriteRecipeIdsDao;
     }
 
+    public FavoritesController() {
+    }
+
     @GetMapping("")
     @CrossOrigin(origins = "http://localhost:3000")
     public List<String> getFavoriteRecipeIds() {
