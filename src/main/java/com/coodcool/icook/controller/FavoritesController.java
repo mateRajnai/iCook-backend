@@ -9,26 +9,25 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/favorites")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FavoritesController {
 
     private FavoriteRecipeIdsDao favoriteRecipeIdsDao;
 
-    @Autowired
+//    @Autowired
     public FavoritesController(@Qualifier("daoMem") FavoriteRecipeIdsDao favoriteRecipeIdsDao) {
         this.favoriteRecipeIdsDao = favoriteRecipeIdsDao;
     }
 
-    public FavoritesController() {
-    }
+//    public FavoritesController() {
+//    }
 
     @GetMapping("")
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<String> getFavoriteRecipeIds() {
         return this.favoriteRecipeIdsDao.getAll();
     }
 
     @PutMapping("")
-    @CrossOrigin(origins = "http://localhost:3000")
     public List<String> updateFavoriteRecipeIds(@RequestBody String id) {
        return this.favoriteRecipeIdsDao.update(id);
     }

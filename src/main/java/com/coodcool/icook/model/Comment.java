@@ -11,7 +11,7 @@ public class Comment {
 
     private String id;
     private String content;
-    @Autowired
+//    @Autowired
     private LocalDateTime submissionTime;
     private String recipeId;
 
