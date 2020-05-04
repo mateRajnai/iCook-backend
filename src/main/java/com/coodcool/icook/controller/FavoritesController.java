@@ -14,13 +14,9 @@ public class FavoritesController {
 
     private FavoriteRecipeIdsDao favoriteRecipeIdsDao;
 
-//    @Autowired
     public FavoritesController(@Qualifier("daoMem") FavoriteRecipeIdsDao favoriteRecipeIdsDao) {
         this.favoriteRecipeIdsDao = favoriteRecipeIdsDao;
     }
-
-//    public FavoritesController() {
-//    }
 
     @GetMapping("")
     public List<String> getFavoriteRecipeIds() {
