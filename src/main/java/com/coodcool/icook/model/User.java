@@ -37,7 +37,7 @@ public class User {
     @Singular
     @ManyToMany
     @EqualsAndHashCode.Exclude
-    Set<FavouriteRecipe> favourites;
+    Set<FavoriteRecipe> favorites;
 
     @Singular
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})

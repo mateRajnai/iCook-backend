@@ -11,7 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-public class FavouriteRecipe {
+public class FavoriteRecipe {
 
     @Id
     @GeneratedValue

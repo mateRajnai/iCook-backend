@@ -21,6 +21,6 @@ public class Tag {
     @Singular
     @ManyToMany
     @EqualsAndHashCode.Exclude
-    private Set<FavouriteRecipe> taggedFavourites;
+    private Set<FavoriteRecipe> taggedFavorites;
 
 }
