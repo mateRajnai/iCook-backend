@@ -1,6 +1,6 @@
 package com.coodcool.icook.controller;
 
-import com.coodcool.icook.dao.CommentDao;
+import com.coodcool.icook.dao.repository.CommentRepository;
 import com.coodcool.icook.model.Comment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +14,18 @@ import java.util.List;
 public class CommentController {
 
     @Autowired
-    private CommentDao commentDao;
+    private CommentRepository commentRepository;
 
     @GetMapping("/{id}/comments")
     public List<Comment> getCommentsBy(@PathVariable("id") String id) {
-
-        return this.commentDao.getCommentsBy(id);
+        return this.commentRepository.findAllByRecipeId(id);
     }
 
     @PostMapping("/{id}/comments")
     public List<Comment> addComment(@RequestBody Comment comment, @PathVariable("id") String id) {
         comment.setSubmissionTime(LocalDateTime.now());
-        this.commentDao.addComment(comment);
-        return this.commentDao.getCommentsBy(id);
+        this.commentRepository.save(comment);
+        return this.commentRepository.findAllByRecipeId(id);
     }
 
 }
