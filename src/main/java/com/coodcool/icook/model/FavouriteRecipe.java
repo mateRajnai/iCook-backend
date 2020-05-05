@@ -19,10 +19,10 @@ public class FavouriteRecipe {
 
     private String recipeId;
 
-    //@Singular
-    //@ManyToMany
-    //@EqualsAndHashCode.Exclude
-    //private Set<User> users;
+    @Singular
+    @ManyToMany
+    @EqualsAndHashCode.Exclude
+    private Set<User> users;
 
     private int bookmarkedTime;
 

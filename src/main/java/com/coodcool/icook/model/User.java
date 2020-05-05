@@ -1,4 +1,4 @@
-/*package com.coodcool.icook.model;
+package com.coodcool.icook.model;
 
 import lombok.*;
 
@@ -10,6 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(name = "`user`")
 public class User {
 
     @Id
@@ -44,4 +45,4 @@ public class User {
     Set<PersonalNote> notes;
 
 
-}*/
+}
