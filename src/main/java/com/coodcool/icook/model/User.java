@@ -30,6 +30,7 @@ public class User {
     @EqualsAndHashCode.Exclude
     Set<Comment> comments;
 
+
     @ManyToMany
     Set<FavouriteRecipe> favourites;
 

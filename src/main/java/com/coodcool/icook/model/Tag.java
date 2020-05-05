@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -17,21 +16,15 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-public class FavouriteRecipe {
+public class Tag {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    private String recipeId;
+    private String tag;
 
     @ManyToMany
-    private Set<User> users;
-
-    private int bookmarkedTime;
-
-    @ManyToMany
-    private List<Tag> tags;
-
+    private Set<FavouriteRecipe> taggedFavourites;
 
 }
