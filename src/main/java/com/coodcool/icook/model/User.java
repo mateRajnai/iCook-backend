@@ -1,11 +1,15 @@
 package com.coodcool.icook.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Singular;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
 public class User {
 
     @Id
@@ -21,11 +25,13 @@ public class User {
     @OneToOne
     private Address address;
 
-    @OneToMany
+    @Singular
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @EqualsAndHashCode.Exclude
     Set<Comment> comments;
 
     @ManyToMany
-    Set<FavouriteRecipes> favourites;
+    Set<FavouriteRecipe> favourites;
 
     @Singular
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
