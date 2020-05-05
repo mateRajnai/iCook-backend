@@ -13,7 +13,6 @@ public class CommentDaoMem implements CommentDao {
 
     private List<Comment> comments = new LinkedList<>();
 
-
     @Override
     public void addComment(Comment comment) {
         comments.add(comment);
@@ -28,7 +27,6 @@ public class CommentDaoMem implements CommentDao {
                         .equals(recipeId))
                 .collect(Collectors.toList());
     }
-
 
     @Override
     public void editComment(Comment comment) {

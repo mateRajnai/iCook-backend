@@ -1,14 +1,8 @@
 package com.coodcool.icook.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.Set;
 
 @Data
@@ -24,7 +18,9 @@ public class Tag {
 
     private String tag;
 
+    @Singular
     @ManyToMany
+    @EqualsAndHashCode.Exclude
     private Set<FavouriteRecipe> taggedFavourites;
 
 }

@@ -21,10 +21,12 @@ public class PersonalNote {
 
     private Long recipeId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //private User user;
 
     private String content;
 
     private LocalDateTime submissionTime;
+
+
 }

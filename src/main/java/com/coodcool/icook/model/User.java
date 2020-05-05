@@ -1,4 +1,4 @@
-package com.coodcool.icook.model;
+/*package com.coodcool.icook.model;
 
 import lombok.*;
 
@@ -20,18 +20,22 @@ public class User {
     private String firstName;
     private String password;
     private String email;
+
+    @Enumerated(EnumType.STRING)
     private Role userType;
 
-    @OneToOne
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST})
+    @EqualsAndHashCode.Exclude
     private Address address;
 
     @Singular
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
     @EqualsAndHashCode.Exclude
     Set<Comment> comments;
 
-
+    @Singular
     @ManyToMany
+    @EqualsAndHashCode.Exclude
     Set<FavouriteRecipe> favourites;
 
     @Singular
@@ -40,4 +44,4 @@ public class User {
     Set<PersonalNote> notes;
 
 
-}
+}*/
