@@ -66,4 +66,17 @@ public class CommentRepositoryTest {
                 .hasSize(2)
                 .containsExactly(comment2, comment1);
     }
+
+    @Test
+    public void findCommentById() {
+        Comment comment1 = CommentMother.completeWithoutId().build();
+        Comment comment2 = CommentMother.completeWithoutId().build();
+        commentRepository.saveAll(Lists.newArrayList(comment1, comment2));
+        System.out.println(commentRepository.findAll());
+        List<Comment> comments = commentRepository.findAll();
+        assertThat(comments).hasSize(2);
+        Comment foundComment = commentRepository.findCommentById(2L);
+        assertEquals(comment1, foundComment);
+    }
+
 }
