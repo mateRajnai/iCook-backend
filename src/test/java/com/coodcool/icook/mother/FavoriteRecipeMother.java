@@ -7,7 +7,7 @@ public class FavoriteRecipeMother {
 
     public static FavoriteRecipe.FavoriteRecipeBuilder withoutUserAndId() {
         return FavoriteRecipe.builder()
-                .recipeId("http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_233567d117b63a90fd90dabbcd4e4f39");
+                .recipeId("long escaped uri nr1");
     }
 
     public static FavoriteRecipe.FavoriteRecipeBuilder withoutIdAndWithCustomUser(User user) {

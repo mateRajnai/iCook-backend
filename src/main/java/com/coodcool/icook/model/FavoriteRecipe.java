@@ -17,7 +17,7 @@ public class FavoriteRecipe {
     private Long id;
     private String recipeId;
     @Singular
-    @ManyToMany
+    @ManyToMany(mappedBy = "favorites")
     @EqualsAndHashCode.Exclude
     private Set<User> users;
 

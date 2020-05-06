@@ -35,7 +35,7 @@ public class User {
     Set<Comment> comments;
 
     @Singular
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @EqualsAndHashCode.Exclude
     Set<FavoriteRecipe> favorites;
 
