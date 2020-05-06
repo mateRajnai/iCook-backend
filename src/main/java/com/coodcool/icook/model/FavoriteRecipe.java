@@ -7,18 +7,15 @@ import java.util.List;
 import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 public class FavoriteRecipe {
-
     @Id
     @GeneratedValue
     private Long id;
-
     private String recipeId;
-
     @Singular
     @ManyToMany
     @EqualsAndHashCode.Exclude
@@ -30,6 +27,4 @@ public class FavoriteRecipe {
     @ManyToMany
     @EqualsAndHashCode.Exclude
     private List<Tag> tags;
-
-
 }
