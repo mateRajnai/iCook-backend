@@ -27,4 +27,7 @@ public class CommentMother {
                 .submissionTime(LocalDateTime.now());
     }
 
+    public static String getRecipeId() {
+        return RECIPE_ID;
+    }
 }
