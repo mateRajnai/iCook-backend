@@ -59,7 +59,11 @@ public class CommentRepositoryTest {
                 .completeWithoutIdAndSubmissionTime()
                 .submissionTime(LocalDateTime.now().plusMinutes(1))
                 .build();
-        commentRepository.saveAll(Lists.newArrayList(comment1, comment2));
+        Comment comment3 = CommentMother
+                .completeWithoutIdAndRecipeId()
+                .recipeId("recipe id 2")
+                .build();
+        commentRepository.saveAll(Lists.newArrayList(comment1, comment2, comment3));
         String recipeId = CommentMother.getRecipeId();
         List<Comment> comments = commentRepository.findAllByRecipeIdOrderBySubmissionTimeDesc(recipeId);
         assertThat(comments)
