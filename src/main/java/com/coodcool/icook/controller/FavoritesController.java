@@ -1,6 +1,8 @@
 package com.coodcool.icook.controller;
 
 import com.coodcool.icook.dao.FavoriteRecipeIdsDao;
+import com.coodcool.icook.dao.repository.FavoriteRecipeRepository;
+import com.coodcool.icook.model.FavoriteRecipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -12,19 +14,24 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class FavoritesController {
 
-    private FavoriteRecipeIdsDao favoriteRecipeIdsDao;
+    private FavoriteRecipeRepository favoriteRecipeRepository;
 
-    public FavoritesController(@Qualifier("daoMem") FavoriteRecipeIdsDao favoriteRecipeIdsDao) {
-        this.favoriteRecipeIdsDao = favoriteRecipeIdsDao;
+    public FavoritesController(FavoriteRecipeRepository favoriteRecipeRepository) {
+        this.favoriteRecipeRepository = favoriteRecipeRepository;
     }
 
     @GetMapping("")
-    public List<String> getFavoriteRecipeIds() {
-        return this.favoriteRecipeIdsDao.getAll();
+    public List<FavoriteRecipe> getFavoriteRecipes() {
+        return this.favoriteRecipeRepository.findAll();
     }
 
-    @PutMapping("")
-    public List<String> updateFavoriteRecipeIds(@RequestBody String id) {
-       return this.favoriteRecipeIdsDao.update(id);
+    @PostMapping("")
+    public FavoriteRecipe saveFavoriteRecipe(@RequestBody FavoriteRecipe favoriteRecipe) {
+       return this.favoriteRecipeRepository.save(favoriteRecipe);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteFavoriteRecipe(@PathVariable(value="id") Long id) {
+        this.favoriteRecipeRepository.deleteById(id);
     }
 }
