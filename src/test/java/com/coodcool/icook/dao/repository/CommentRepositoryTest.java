@@ -2,12 +2,14 @@ package com.coodcool.icook.dao.repository;
 
 import com.coodcool.icook.model.Comment;
 import com.coodcool.icook.mother.CommentMother;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,4 +49,21 @@ public class CommentRepositoryTest {
         });
     }
 
+    @Test
+    public void findAllByRecipeIdOrderBySubmissionTimeDesc() {
+        Comment comment1 = CommentMother
+                .completeWithoutIdAndSubmissionTime()
+                .submissionTime(LocalDateTime.now())
+                .build();
+        Comment comment2 = CommentMother
+                .completeWithoutIdAndSubmissionTime()
+                .submissionTime(LocalDateTime.now().plusMinutes(1))
+                .build();
+        commentRepository.saveAll(Lists.newArrayList(comment1, comment2));
+        String recipeId = CommentMother.getRecipeId();
+        List<Comment> comments = commentRepository.findAllByRecipeIdOrderBySubmissionTimeDesc(recipeId);
+        assertThat(comments)
+                .hasSize(2)
+                .containsExactly(comment2, comment1);
+    }
 }
