@@ -5,6 +5,7 @@ import com.coodcool.icook.mother.CommentMother;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -25,6 +26,18 @@ public class CommentRepositoryTest {
         commentRepository.save(comment);
         List<Comment> comments = commentRepository.findAll();
         assertThat(comments).hasSize(1);
+    }
+
+
+    @Test
+    public void submissionTimeShouldBeNotNull() {
+        Comment comment = CommentMother.completeWithoutIdAndSubmissionTime()
+                .build();
+        System.out.println(comment);
+        assertThrows(DataIntegrityViolationException.class, () -> {
+            commentRepository.saveAndFlush(comment);
+        });
+
     }
 
 
