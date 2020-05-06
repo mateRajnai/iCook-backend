@@ -18,7 +18,7 @@ public class CommentController {
 
     @GetMapping("")
     public List<Comment> getCommentsBy(@PathVariable("id") String id) {
-        return this.commentRepository.findAllByRecipeId(id);
+        return this.commentRepository.findAllByRecipeIdOrderBySubmissionTimeDesc(id);
     }
 
     @PostMapping("")
