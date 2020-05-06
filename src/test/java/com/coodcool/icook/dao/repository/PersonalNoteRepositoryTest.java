@@ -1,7 +1,6 @@
 package com.coodcool.icook.dao.repository;
 
 import com.coodcool.icook.model.PersonalNote;
-import com.coodcool.icook.dao.repository.PersonalNoteRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
