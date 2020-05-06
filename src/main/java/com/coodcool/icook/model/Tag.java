@@ -3,28 +3,24 @@ package com.coodcool.icook.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Entity
-public class FavoriteRecipe {
+public class Tag {
+
     @Id
     @GeneratedValue
     private Long id;
-    private String recipeId;
-    @Singular
-    @ManyToMany
-    @EqualsAndHashCode.Exclude
-    private Set<User> users;
 
-    private int bookmarkedTime;
+    private String tag;
 
     @Singular
     @ManyToMany
     @EqualsAndHashCode.Exclude
-    private List<Tag> tags;
+    private Set<FavoriteRecipe> taggedFavorites;
+
 }
