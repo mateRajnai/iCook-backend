@@ -20,11 +20,13 @@ public class CommentRepositoryTest {
     private CommentRepository commentRepository;
 
     @Test
-    public void saveOneSimple() {
+    public void saveOneComment() {
         Comment comment = CommentMother.completeWithoutId().build();
         commentRepository.save(comment);
         List<Comment> comments = commentRepository.findAll();
         assertThat(comments).hasSize(1);
     }
+
+
 
 }
