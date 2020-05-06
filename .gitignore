@@ -36,4 +36,4 @@ build/
 ### Resources - application.properties ###
 src/main/resources/application.properties
 src/main/resources/application-production.properties
-src/main/resources/application-test.properties
+src/test/resources/application-test.properties
