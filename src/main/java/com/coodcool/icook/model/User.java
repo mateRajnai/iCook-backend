@@ -44,5 +44,8 @@ public class User {
     @EqualsAndHashCode.Exclude
     Set<PersonalNote> notes;
 
-
+    @Singular
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @EqualsAndHashCode.Exclude
+    Set<Tag> tags;
 }
