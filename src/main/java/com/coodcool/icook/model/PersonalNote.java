@@ -19,7 +19,7 @@ public class PersonalNote {
     @GeneratedValue
     private Long id;
 
-    private Long recipeId;
+    private String recipeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;

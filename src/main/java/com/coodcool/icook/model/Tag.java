@@ -18,6 +18,9 @@ public class Tag {
 
     private String tag;
 
+    @ManyToOne
+    private User user;
+
     @Singular
     @ManyToMany
     @EqualsAndHashCode.Exclude

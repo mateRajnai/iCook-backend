@@ -20,7 +20,7 @@ public class FavoriteRecipeRepositoryTest {
 
     @Test
     public void saveOneSimple() {
-        FavoriteRecipe recipe = FavoriteRecipeMother.completeWithoutUserAndId().build();
+        FavoriteRecipe recipe = FavoriteRecipeMother.withoutUserAndId().build();
         favoriteRecipeRepository.save(recipe);
         List<FavoriteRecipe> allRecipes = favoriteRecipeRepository.findAll();
 
