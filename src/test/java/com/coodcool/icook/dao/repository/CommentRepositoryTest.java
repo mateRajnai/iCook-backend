@@ -40,6 +40,12 @@ public class CommentRepositoryTest {
 
     }
 
-
+    @Test
+    public void recipeIdShouldBeNotNull() {
+        Comment comment = CommentMother.completeWithoutIdAndRecipeId().build();
+        assertThrows(DataIntegrityViolationException.class, () -> {
+            commentRepository.saveAndFlush(comment);
+        });
+    }
 
 }
