@@ -33,7 +33,6 @@ public class CommentRepositoryTest {
     public void submissionTimeShouldBeNotNull() {
         Comment comment = CommentMother.completeWithoutIdAndSubmissionTime()
                 .build();
-        System.out.println(comment);
         assertThrows(DataIntegrityViolationException.class, () -> {
             commentRepository.saveAndFlush(comment);
         });
