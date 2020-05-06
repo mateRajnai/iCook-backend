@@ -5,9 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-
 public interface PersonalNoteRepository extends JpaRepository<PersonalNote, Long > {
 
-    List<PersonalNote> getPersonalNotesByUser()
+    List<PersonalNote> getPersonalNotesByUser_Id(long id);
 
 }
