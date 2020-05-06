@@ -22,10 +22,11 @@ public class CommentController {
     }
 
     @PostMapping("/{id}/comments")
-    public List<Comment> addComment(@RequestBody Comment comment, @PathVariable("id") String id) {
+    public Comment addComment(@RequestBody Comment comment, @PathVariable("id") String id) {
         comment.setSubmissionTime(LocalDateTime.now());
         this.commentRepository.save(comment);
-        return this.commentRepository.findAllByRecipeId(id);
+        Long commentId = comment.getId();
+        return this.commentRepository.findCommentById(commentId);
     }
 
 }
