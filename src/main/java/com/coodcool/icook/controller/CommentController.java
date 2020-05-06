@@ -13,8 +13,11 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class CommentController {
 
-    @Autowired
     private CommentRepository commentRepository;
+
+    public CommentController(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 
     @GetMapping("")
     public List<Comment> getCommentsBy(@PathVariable("id") String id) {
