@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import java.time.LocalDateTime;
 
 @Data
@@ -25,7 +27,7 @@ public class Comment {
 
     @Column(nullable = false)
     private String recipeId;
-
-//    private User user;
+    @ManyToOne
+    private User user;
 
 }
