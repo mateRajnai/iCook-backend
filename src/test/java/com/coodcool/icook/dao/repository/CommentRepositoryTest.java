@@ -78,8 +78,9 @@ public class CommentRepositoryTest {
         commentRepository.saveAll(Lists.newArrayList(comment1, comment2));
         List<Comment> comments = commentRepository.findAll();
         assertThat(comments).hasSize(2);
-        Comment foundComment = commentRepository.findCommentById(2L);
+        Comment foundComment = commentRepository.findCommentById(comment1.getId());
         assertEquals(comment1, foundComment);
+
     }
 
 }
