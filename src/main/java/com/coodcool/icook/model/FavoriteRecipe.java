@@ -18,13 +18,16 @@ public class FavoriteRecipe {
     private Long id;
     @NaturalId
     private String recipeId;
+    @ToString.Exclude
     @Singular
     @ManyToMany(mappedBy = "favorites")
     @EqualsAndHashCode.Exclude
     private Set<User> users;
 
+    @ToString.Exclude
     private int bookmarkedTime;
 
+    @ToString.Exclude
     @Singular
     @ManyToMany
     @EqualsAndHashCode.Exclude

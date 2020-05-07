@@ -8,6 +8,10 @@ import java.util.List;
 
 public interface PersonalNoteRepository extends JpaRepository<PersonalNote, Long > {
 
-    List<PersonalNote> getAllByUser(User user);
+    List<PersonalNote> findAllByRecipeIdAndUserIdOrderBySubmissionTimeDesc(String id, Long userId);
+
+    List<PersonalNote> getAllByRecipeId(String id);
+
+    PersonalNote findPersonalNoteById(long id);
 
 }
