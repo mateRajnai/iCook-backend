@@ -28,4 +28,5 @@ public class PersonalNoteMother {
         return withoutUserAndWithCustomId(id)
                 .user(user);
     }
+
 }

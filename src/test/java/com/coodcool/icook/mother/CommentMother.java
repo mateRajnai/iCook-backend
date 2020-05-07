@@ -29,6 +29,7 @@ public class CommentMother {
                 .user(user);
     }
 
+
     public static Comment.CommentBuilder completeWithoutUserAndIdAndSubmissionTime() {
         return Comment.builder()
                 .content(CONTENT)
