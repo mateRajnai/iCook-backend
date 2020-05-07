@@ -35,7 +35,7 @@ public class User {
     Set<Comment> comments;
 
     @Singular
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @EqualsAndHashCode.Exclude
     Set<FavoriteRecipe> favorites;
 
@@ -44,5 +44,8 @@ public class User {
     @EqualsAndHashCode.Exclude
     Set<PersonalNote> notes;
 
-
+    @Singular
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @EqualsAndHashCode.Exclude
+    Set<Tag> tags;
 }

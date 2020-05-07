@@ -1,6 +1,7 @@
 package com.coodcool.icook.model;
 
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,9 +16,10 @@ public class FavoriteRecipe {
     @Id
     @GeneratedValue
     private Long id;
+    @NaturalId
     private String recipeId;
     @Singular
-    @ManyToMany
+    @ManyToMany(mappedBy = "favorites")
     @EqualsAndHashCode.Exclude
     private Set<User> users;
 
