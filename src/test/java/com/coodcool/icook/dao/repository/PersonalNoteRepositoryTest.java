@@ -58,7 +58,7 @@ class PersonalNoteRepositoryTest {
         userRepository.save(user2);
 
         List<PersonalNote> personalNotes = personalNoteRepository
-                .getAllByUser(user);
+                .findAllByRecipeIdAndUserIdOrderBySubmissionTimeDesc("some_id", user.getId());
 
         assertThat(personalNotes).hasSize(2);
     }

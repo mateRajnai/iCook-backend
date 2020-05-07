@@ -20,12 +20,12 @@ public class PersonalNoteController {
     }
 
 
-    @GetMapping("/list")
+    @GetMapping("")
     public List<PersonalNote> getPersonalNotes(@PathVariable("id") String id) {
         return this.personalNoteRepository.getAllByRecipeId(id);
     }
 
-    @PostMapping("/save")
+    @PostMapping("")
     public PersonalNote createPersonalNote(@RequestBody PersonalNote personalNote ) {
         personalNote.setSubmissionTime(LocalDateTime.now());
         this.personalNoteRepository.save(personalNote);
