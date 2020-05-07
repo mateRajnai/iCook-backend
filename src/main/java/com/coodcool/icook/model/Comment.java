@@ -29,7 +29,6 @@ public class Comment {
     @Column(nullable = false)
     private String recipeId;
     @ManyToOne
-    @ToString.Exclude
     private User user;
 
 }

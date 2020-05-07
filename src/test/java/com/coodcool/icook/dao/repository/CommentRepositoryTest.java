@@ -1,7 +1,7 @@
 package com.coodcool.icook.dao.repository;
 
-import com.coodcool.icook.model.*;
-import com.coodcool.icook.mother.*;
+import com.coodcool.icook.model.Comment;
+import com.coodcool.icook.mother.CommentMother;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,6 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static  org.assertj.core.api.Assertions.assertThat;
@@ -24,31 +22,18 @@ public class CommentRepositoryTest {
     @Autowired
     private CommentRepository commentRepository;
 
-    @Autowired
-    private UserRepository userRepository;
-
-
     @Test
-    public void saveOneCompleteComment() {
-        User user = UserMother.withoutAnyRelationsAndId().build();
-        Comment comment = CommentMother.withoutIdAndWithCustomUser(user).build();
-        user.setComments(Set.of(comment));
-        userRepository.save(user);
-//  Q:      commentRepository.saveAndFlush(comment);
-        assertThat(commentRepository.findAll()).hasSize(1).containsExactly(comment);
-        Optional<Comment> queriedComment = commentRepository.findById(comment.getId());
-        assertThat(queriedComment).isNotEmpty();
-        assertThat(queriedComment.get().getContent()).isNotNull();
-        assertThat(queriedComment.get().getSubmissionTime()).isNotNull();
-        assertThat(queriedComment.get().getRecipeId()).isNotNull();
-        assertThat(queriedComment.get().getUser()).isNotNull();
-
+    public void saveOneComment() {
+        Comment comment = CommentMother.completeWithoutId().build();
+        commentRepository.save(comment);
+        List<Comment> comments = commentRepository.findAll();
+        assertThat(comments).hasSize(1);
     }
 
 
     @Test
     public void submissionTimeShouldBeNotNull() {
-        Comment comment = CommentMother.completeWithoutUserAndIdAndSubmissionTime()
+        Comment comment = CommentMother.completeWithoutIdAndSubmissionTime()
                 .build();
         assertThrows(DataIntegrityViolationException.class, () -> {
             commentRepository.saveAndFlush(comment);
@@ -58,7 +43,7 @@ public class CommentRepositoryTest {
 
     @Test
     public void recipeIdShouldBeNotNull() {
-        Comment comment = CommentMother.completeWithoutUserAndIdAndRecipeId().build();
+        Comment comment = CommentMother.completeWithoutIdAndRecipeId().build();
         assertThrows(DataIntegrityViolationException.class, () -> {
             commentRepository.saveAndFlush(comment);
         });
@@ -67,15 +52,15 @@ public class CommentRepositoryTest {
     @Test
     public void findAllByRecipeIdOrderBySubmissionTimeDesc() {
         Comment comment1 = CommentMother
-                .completeWithoutUserAndIdAndSubmissionTime()
+                .completeWithoutIdAndSubmissionTime()
                 .submissionTime(LocalDateTime.now())
                 .build();
         Comment comment2 = CommentMother
-                .completeWithoutUserAndIdAndSubmissionTime()
+                .completeWithoutIdAndSubmissionTime()
                 .submissionTime(LocalDateTime.now().plusMinutes(1))
                 .build();
         Comment comment3 = CommentMother
-                .completeWithoutUserAndIdAndRecipeId()
+                .completeWithoutIdAndRecipeId()
                 .recipeId("recipe id 2")
                 .build();
         commentRepository.saveAll(Lists.newArrayList(comment1, comment2, comment3));
@@ -88,8 +73,8 @@ public class CommentRepositoryTest {
 
     @Test
     public void findCommentById() {
-        Comment comment1 = CommentMother.withoutUserAndId().build();
-        Comment comment2 = CommentMother.withoutUserAndId().build();
+        Comment comment1 = CommentMother.completeWithoutId().build();
+        Comment comment2 = CommentMother.completeWithoutId().build();
         commentRepository.saveAll(Lists.newArrayList(comment1, comment2));
         List<Comment> comments = commentRepository.findAll();
         assertThat(comments).hasSize(2);
