@@ -1,6 +1,9 @@
 package com.coodcool.icook.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -19,7 +22,6 @@ public class PersonalNote {
     private String recipeId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @ToString.Exclude
     private User user;
 
     private String content;
