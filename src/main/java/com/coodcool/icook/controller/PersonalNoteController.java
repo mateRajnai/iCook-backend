@@ -33,8 +33,9 @@ public class PersonalNoteController {
 
     @PostMapping("/save")
     public PersonalNote createPersonalNote(@RequestBody PersonalNote personalNote ) {
+        System.out.println(personalNote.toString());
         personalNote.setUser(dummyUser);
-        personalNoteRepository.save(personalNote);
+        personalNoteRepository.saveAndFlush(personalNote);
         Long personalNoteId = personalNote.getId();
 
         return personalNoteRepository.findPersonalNoteById(personalNoteId);

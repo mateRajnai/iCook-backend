@@ -48,4 +48,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     Set<Tag> tags;
+
+    public void addPersonalNote(PersonalNote personalNote) {
+        notes.add(personalNote);
+    }
 }
