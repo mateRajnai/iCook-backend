@@ -5,6 +5,7 @@ import com.coodcool.icook.model.PersonalNote;
 import com.coodcool.icook.model.User;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -14,13 +15,6 @@ public class PersonalNoteController {
 
     private PersonalNoteRepository personalNoteRepository;
 
-    private User dummyUser = User.builder()
-            .userName("John")
-            .firstName("Denem")
-            .email("john.denem@gmail.com")
-            .password("johndenem123")
-            .build();
-
     public PersonalNoteController(PersonalNoteRepository personalNoteRepository) {
         this.personalNoteRepository = personalNoteRepository;
     }
@@ -28,17 +22,16 @@ public class PersonalNoteController {
 
     @GetMapping("/list")
     public List<PersonalNote> getPersonalNotes(@PathVariable("id") String id) {
-        return personalNoteRepository.getAllByRecipeId(id);
+        return this.personalNoteRepository.getAllByRecipeId(id);
     }
 
     @PostMapping("/save")
     public PersonalNote createPersonalNote(@RequestBody PersonalNote personalNote ) {
-        System.out.println(personalNote.toString());
-        personalNote.setUser(dummyUser);
-        personalNoteRepository.saveAndFlush(personalNote);
+        personalNote.setSubmissionTime(LocalDateTime.now());
+        this.personalNoteRepository.save(personalNote);
         Long personalNoteId = personalNote.getId();
 
-        return personalNoteRepository.findPersonalNoteById(personalNoteId);
+        return this.personalNoteRepository.findPersonalNoteById(personalNoteId);
     }
 
 }
