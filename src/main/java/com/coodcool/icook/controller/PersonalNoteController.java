@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/personal-note")
+@RequestMapping("/recipe/{id}/personal-note")
 @CrossOrigin(origins = "http://localhost:3000")
 public class PersonalNoteController {
 
@@ -26,15 +26,18 @@ public class PersonalNoteController {
     }
 
 
-    @GetMapping("")
-    public List<PersonalNote> getPersonalNotes() {
-        return personalNoteRepository.getAllByUser(dummyUser);
+    @GetMapping("/list")
+    public List<PersonalNote> getPersonalNotes(@PathVariable("id") String id) {
+        return personalNoteRepository.getAllByRecipeId(id);
     }
 
     @PostMapping("/save")
-    public void createPersonalNote(@RequestBody PersonalNote personalNote ) {
+    public PersonalNote createPersonalNote(@RequestBody PersonalNote personalNote ) {
         personalNote.setUser(dummyUser);
         personalNoteRepository.save(personalNote);
+        Long personalNoteId = personalNote.getId();
+
+        return personalNoteRepository.findPersonalNoteById(personalNoteId);
     }
 
 }
