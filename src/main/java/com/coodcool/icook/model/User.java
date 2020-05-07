@@ -29,21 +29,25 @@ public class User {
     @EqualsAndHashCode.Exclude
     private Address address;
 
+    @ToString.Exclude
     @Singular
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
     @EqualsAndHashCode.Exclude
     Set<Comment> comments;
 
+    @ToString.Exclude
     @Singular
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @EqualsAndHashCode.Exclude
     Set<FavoriteRecipe> favorites;
 
+    @ToString.Exclude
     @Singular
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
     Set<PersonalNote> notes;
 
+    @ToString.Exclude
     @Singular
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude

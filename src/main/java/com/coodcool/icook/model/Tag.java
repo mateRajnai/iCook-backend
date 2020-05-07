@@ -18,9 +18,11 @@ public class Tag {
 
     private String tag;
 
+    @ToString.Exclude
     @ManyToOne
     private User user;
 
+    @ToString.Exclude
     @Singular
     @ManyToMany
     @EqualsAndHashCode.Exclude
