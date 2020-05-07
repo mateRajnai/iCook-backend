@@ -24,7 +24,7 @@ public class CommentRepositoryTest {
 
     @Test
     public void saveOneComment() {
-        Comment comment = CommentMother.completeWithoutId().build();
+        Comment comment = CommentMother.withoutUserAndId().build();
         commentRepository.save(comment);
         List<Comment> comments = commentRepository.findAll();
         assertThat(comments).hasSize(1);
@@ -73,8 +73,8 @@ public class CommentRepositoryTest {
 
     @Test
     public void findCommentById() {
-        Comment comment1 = CommentMother.completeWithoutId().build();
-        Comment comment2 = CommentMother.completeWithoutId().build();
+        Comment comment1 = CommentMother.withoutUserAndId().build();
+        Comment comment2 = CommentMother.withoutUserAndId().build();
         commentRepository.saveAll(Lists.newArrayList(comment1, comment2));
         List<Comment> comments = commentRepository.findAll();
         assertThat(comments).hasSize(2);
@@ -82,5 +82,7 @@ public class CommentRepositoryTest {
         assertEquals(comment1, foundComment);
 
     }
+
+
 
 }
