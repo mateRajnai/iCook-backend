@@ -28,8 +28,6 @@ public class TagRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private FavoriteRecipeRepository favoriteRecipeRepository;
 
     @Test
     public void saveOneCompleteTag() {
@@ -50,11 +48,8 @@ public class TagRepositoryTest {
 
     }
 
-
-
     @Test
     public void findAllTagByUserId() {
-        // methodba kiszervezni
         User user = UserMother.withoutAnyRelationsAndId().build();
         User user2 = UserMother.withoutAnyRelationsAndId().build();
         Tag tag = TagMother.withoutIdAndWithCustom(user, null).build();
@@ -69,6 +64,29 @@ public class TagRepositoryTest {
         assertThat(tags).hasSize(1).containsExactly(tag);
     }
 
+    @Test
+    public void updateTagByIdAndUserId() {
+        User user1 = UserMother.withoutAnyRelationsAndId().build();
+        User user2 = UserMother.withoutAnyRelationsAndId().build();
+        Tag tag1 = TagMother.withoutIdAndWithCustom(user1, null).build();
+        Tag tag2 = TagMother.withoutIdAndWithCustom(user2, null).build();
+        user1.setTags(Set.of(tag1));
+        user2.setTags(Set.of(tag2));
+        userRepository.saveAll(Lists.newArrayList(user1, user2));
+        List<Tag> tags = tagRepository.findAll();
+        assertThat(tags).hasSize(2);
 
+        Long tag1Id = tag1.getId();
+        Long tag2Id = tag2.getId();
+        assertEquals(TagMother.getTag(), tagRepository.findById(tag1Id).get().getTag());
+        assertEquals(TagMother.getTag(), tagRepository.findById(tag2Id).get().getTag());
+
+        Long user1Id = user1.getId();
+        String newTagLabel = "lunch";
+        tagRepository.updateTagByUserId(newTagLabel, user1Id);
+        assertEquals(newTagLabel, tagRepository.findById(tag1Id).get().getTag());
+        assertEquals(TagMother.getTag(), tagRepository.findById(tag2Id).get().getTag());
+
+    }
 
 }
