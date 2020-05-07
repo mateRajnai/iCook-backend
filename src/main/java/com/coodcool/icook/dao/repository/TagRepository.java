@@ -12,11 +12,11 @@ import java.util.List;
 
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
-
-
     @Query("SELECT tag FROM Tag tag WHERE tag.user.id = :userId")
     List<Tag> findAllByUserId(@Param("userId") Long userId);
 
 
-
+    @Query("UPDATE Tag t SET t.tag = :tag WHERE t.user.id = :userId")
+    @Modifying(clearAutomatically = true)
+    void updateTagByUserId(@Param("tag") String tag, @Param("userId") Long userId);
 }
