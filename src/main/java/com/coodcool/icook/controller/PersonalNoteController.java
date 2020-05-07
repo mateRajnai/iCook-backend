@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/personal-note")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://icook.netlify.app")
 public class PersonalNoteController {
 
     private PersonalNoteRepository personalNoteRepository;
