@@ -1,10 +1,7 @@
 package com.coodcool.icook.controller;
 
-import com.coodcool.icook.dao.FavoriteRecipeIdsDao;
 import com.coodcool.icook.dao.repository.FavoriteRecipeRepository;
 import com.coodcool.icook.model.FavoriteRecipe;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
