@@ -29,3 +29,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Resources - application.properties ###
+src/main/resources/application.properties
+src/main/resources/application-production.properties
+src/test/resources/application-test.properties

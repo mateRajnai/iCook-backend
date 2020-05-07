@@ -1,35 +1,34 @@
 package com.coodcool.icook.controller;
 
-import com.coodcool.icook.dao.FavoriteRecipeIdsDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.coodcool.icook.dao.repository.FavoriteRecipeRepository;
+import com.coodcool.icook.model.FavoriteRecipe;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/favorites")
+@CrossOrigin(origins = "https://icook.netlify.app")
 public class FavoritesController {
 
-    private FavoriteRecipeIdsDao favoriteRecipeIdsDao;
+    private FavoriteRecipeRepository favoriteRecipeRepository;
 
-    @Autowired
-    public FavoritesController(@Qualifier("daoMem") FavoriteRecipeIdsDao favoriteRecipeIdsDao) {
-        this.favoriteRecipeIdsDao = favoriteRecipeIdsDao;
-    }
-
-    public FavoritesController() {
+    public FavoritesController(FavoriteRecipeRepository favoriteRecipeRepository) {
+        this.favoriteRecipeRepository = favoriteRecipeRepository;
     }
 
     @GetMapping("")
-    @CrossOrigin(origins = "https://icook.netlify.app")
-    public List<String> getFavoriteRecipeIds() {
-        return this.favoriteRecipeIdsDao.getAll();
+    public List<FavoriteRecipe> getFavoriteRecipes() {
+        return this.favoriteRecipeRepository.findAll();
     }
 
-    @PutMapping("")
-    @CrossOrigin(origins = "https://icook.netlify.app")
-    public List<String> updateFavoriteRecipeIds(@RequestBody String id) {
-       return this.favoriteRecipeIdsDao.update(id);
+    @PostMapping("")
+    public FavoriteRecipe saveFavoriteRecipe(@RequestBody FavoriteRecipe favoriteRecipe) {
+       return this.favoriteRecipeRepository.save(favoriteRecipe);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteFavoriteRecipe(@PathVariable(value="id") Long id) {
+        this.favoriteRecipeRepository.deleteById(id);
     }
 }
