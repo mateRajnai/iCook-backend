@@ -28,10 +28,10 @@ public class PersonalNoteController {
     }
 
 
-    @GetMapping("")
+/*    @GetMapping("")
     public List<PersonalNote> getPersonalNotes() {
         return personalNoteRepository.getPersonalNotesByUser_Id(dummyUser.getId());
-    }
+    }*/
 
     @PostMapping("/save")
     public void createPersonalNote(@RequestBody PersonalNote personalNote ) {

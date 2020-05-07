@@ -47,7 +47,7 @@ class PersonalNoteRepositoryTest {
     public void getPersonalNotesByUserId() {
 
         PersonalNote personalNote1 = PersonalNoteMother.withoutUserAndId().build();
-        PersonalNote personalNote2 = PersonalNoteMother.withoutUserAndId().build();
+        PersonalNote personalNote2 = PersonalNoteMother.withoutUserAndId().content("random content").build();
         PersonalNote personalNote3 = PersonalNoteMother.withoutUserAndId().build();
 
         User user = UserMother.withoutAnyRelationsAndId().note(personalNote1).note(personalNote2).build();
@@ -57,11 +57,11 @@ class PersonalNoteRepositoryTest {
         personalNote2.setUser(user);
         personalNote3.setUser(user2);
 
-        user = userRepository.save(user);
-        user2 = userRepository.save(user2);
+        userRepository.save(user);
+        userRepository.save(user2);
 
         List<PersonalNote> personalNotes = personalNoteRepository
-                .getPersonalNotesByUser_Id(user.getId());
+                .getAllByUser(user);
 
         assertThat(personalNotes).hasSize(2);
     }
