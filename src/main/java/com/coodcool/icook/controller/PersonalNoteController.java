@@ -1,7 +1,6 @@
 package com.coodcool.icook.controller;
 
 import com.coodcool.icook.dao.repository.PersonalNoteRepository;
-import com.coodcool.icook.model.FavoriteRecipe;
 import com.coodcool.icook.model.PersonalNote;
 import com.coodcool.icook.model.User;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +19,6 @@ public class PersonalNoteController {
             .firstName("Denem")
             .email("john.denem@gmail.com")
             .password("johndenem123")
-            .id((long)1)
             .build();
 
     public PersonalNoteController(PersonalNoteRepository personalNoteRepository) {
@@ -28,10 +26,10 @@ public class PersonalNoteController {
     }
 
 
-/*    @GetMapping("")
+    @GetMapping("")
     public List<PersonalNote> getPersonalNotes() {
-        return personalNoteRepository.getPersonalNotesByUser_Id(dummyUser.getId());
-    }*/
+        return personalNoteRepository.getAllByUser(dummyUser);
+    }
 
     @PostMapping("/save")
     public void createPersonalNote(@RequestBody PersonalNote personalNote ) {
