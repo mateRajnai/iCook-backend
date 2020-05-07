@@ -33,7 +33,7 @@ public class CommentRepositoryTest {
 
     @Test
     public void submissionTimeShouldBeNotNull() {
-        Comment comment = CommentMother.completeWithoutIdAndSubmissionTime()
+        Comment comment = CommentMother.completeWithoutUserAndIdAndSubmissionTime()
                 .build();
         assertThrows(DataIntegrityViolationException.class, () -> {
             commentRepository.saveAndFlush(comment);
@@ -43,7 +43,7 @@ public class CommentRepositoryTest {
 
     @Test
     public void recipeIdShouldBeNotNull() {
-        Comment comment = CommentMother.completeWithoutIdAndRecipeId().build();
+        Comment comment = CommentMother.completeWithoutUserAndIdAndRecipeId().build();
         assertThrows(DataIntegrityViolationException.class, () -> {
             commentRepository.saveAndFlush(comment);
         });
@@ -52,15 +52,15 @@ public class CommentRepositoryTest {
     @Test
     public void findAllByRecipeIdOrderBySubmissionTimeDesc() {
         Comment comment1 = CommentMother
-                .completeWithoutIdAndSubmissionTime()
+                .completeWithoutUserAndIdAndSubmissionTime()
                 .submissionTime(LocalDateTime.now())
                 .build();
         Comment comment2 = CommentMother
-                .completeWithoutIdAndSubmissionTime()
+                .completeWithoutUserAndIdAndSubmissionTime()
                 .submissionTime(LocalDateTime.now().plusMinutes(1))
                 .build();
         Comment comment3 = CommentMother
-                .completeWithoutIdAndRecipeId()
+                .completeWithoutUserAndIdAndRecipeId()
                 .recipeId("recipe id 2")
                 .build();
         commentRepository.saveAll(Lists.newArrayList(comment1, comment2, comment3));
