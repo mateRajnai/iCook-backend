@@ -27,6 +27,7 @@ public class PersonalNoteController {
         this.personalNoteRepository = personalNoteRepository;
     }
 
+
     @GetMapping("")
     public List<PersonalNote> getPersonalNotes() {
         return personalNoteRepository.getPersonalNotesByUser_Id(dummyUser.getId());
