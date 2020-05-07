@@ -2,7 +2,6 @@ package com.coodcool.icook.controller;
 
 import com.coodcool.icook.dao.repository.CommentRepository;
 import com.coodcool.icook.model.Comment;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -13,8 +12,11 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class CommentController {
 
-    @Autowired
     private CommentRepository commentRepository;
+
+    public CommentController(CommentRepository commentRepository) {
+        this.commentRepository = commentRepository;
+    }
 
     @GetMapping("")
     public List<Comment> getCommentsBy(@PathVariable("id") String id) {
