@@ -4,6 +4,7 @@ import com.coodcool.icook.model.PersonalNote;
 import com.coodcool.icook.model.User;
 import com.coodcool.icook.mother.PersonalNoteMother;
 import com.coodcool.icook.mother.UserMother;
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -60,5 +61,19 @@ class PersonalNoteRepositoryTest {
                 .getAllByUser(user);
 
         assertThat(personalNotes).hasSize(2);
+    }
+
+    @Test
+    public void findPersonalNoteById() {
+        PersonalNote personalNote1 = PersonalNoteMother.withoutUserAndId().build();
+        PersonalNote personalNote2 = PersonalNoteMother.withoutUserAndId().content("random content").build();
+
+        personalNoteRepository.saveAll(Lists.newArrayList(personalNote1, personalNote2));
+
+        Long personalNote1Id = personalNote1.getId();
+
+        PersonalNote personalNote = personalNoteRepository.findPersonalNoteById(personalNote1Id);
+
+        assertThat(personalNote).isNotNull();
     }
 }
