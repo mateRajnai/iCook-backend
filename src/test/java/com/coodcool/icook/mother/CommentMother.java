@@ -31,6 +31,7 @@ public class CommentMother {
     public static Comment.CommentBuilder completeWithCustomIdAndUser(Long id, User user) {
         return withoutUserAndWithCustomId(id)
                 .user(user);
+    }
 
     public static Comment.CommentBuilder completeWithoutId() {
         return Comment.builder()
