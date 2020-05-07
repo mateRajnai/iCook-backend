@@ -4,31 +4,29 @@ import com.coodcool.icook.model.PersonalNote;
 import com.coodcool.icook.model.User;
 
 import java.time.LocalDateTime;
+import java.time.Month;
 
 public class PersonalNoteMother {
-
-    public static User.UserBuilder getDummyUser() {
-        return User.builder()
-                .userName("John")
-                .firstName("Denem")
-                .email("john.denem@gmail.com")
-                .password("johndenem123");
-    }
-
-    public static User.UserBuilder getDummyUser2() {
-        return User.builder()
-                .userName("Peter")
-                .firstName("Denem")
-                .email("peter.denem@gmail.com")
-                .password("peteredenem123");
-    }
-
-    public static PersonalNote.PersonalNoteBuilder completePersonalNote() {
-
+    public static PersonalNote.PersonalNoteBuilder withoutUserAndId() {
         return PersonalNote.builder()
-                .recipeId((long) 1)
-                .content("random content")
-                .submissionTime(LocalDateTime.now());
+                .content("Add some more dried tomatoes, it will be more delicious")
+                .recipeId("http%3A%2F%2Fwww.edamam.com%2Fontologies%2Fedamam.owl%23recipe_954a236596ef32f8e013cc9dbf52d0cf")
+                .submissionTime(LocalDateTime.of(2019, Month.AUGUST, 10, 10,10,10));
+    }
+
+    public static PersonalNote.PersonalNoteBuilder withoutUserAndWithCustomId(Long id) {
+        return withoutUserAndId()
+                .id(id);
+    }
+
+    public static PersonalNote.PersonalNoteBuilder withoutIdAndWithCustomUser(User user) {
+        return withoutUserAndId()
+                .user(user);
+    }
+
+    public static PersonalNote.PersonalNoteBuilder completeWithCustomIdAndUser(Long id, User user) {
+        return withoutUserAndWithCustomId(id)
+                .user(user);
     }
 
 }

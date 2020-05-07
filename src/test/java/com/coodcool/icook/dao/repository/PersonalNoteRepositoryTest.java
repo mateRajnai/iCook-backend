@@ -3,7 +3,7 @@ package com.coodcool.icook.dao.repository;
 import com.coodcool.icook.model.PersonalNote;
 import com.coodcool.icook.model.User;
 import com.coodcool.icook.mother.PersonalNoteMother;
-import org.assertj.core.util.Lists;
+import com.coodcool.icook.mother.UserMother;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -32,7 +32,7 @@ class PersonalNoteRepositoryTest {
     public void savePersonalNote() {
 
         PersonalNote personalNote = PersonalNote.builder()
-                .recipeId((long) 1)
+                .recipeId("1")
                 .content("random content")
                 .submissionTime(LocalDateTime.now())
                 .build();
@@ -46,19 +46,19 @@ class PersonalNoteRepositoryTest {
     @Test
     public void getPersonalNotesByUserId() {
 
-        PersonalNote personalNote1 = PersonalNoteMother.completePersonalNote().build();
-        PersonalNote personalNote2 = PersonalNoteMother.completePersonalNote().build();
-        PersonalNote personalNote3 = PersonalNoteMother.completePersonalNote().build();
+        PersonalNote personalNote1 = PersonalNoteMother.withoutUserAndId().build();
+        PersonalNote personalNote2 = PersonalNoteMother.withoutUserAndId().build();
+        PersonalNote personalNote3 = PersonalNoteMother.withoutUserAndId().build();
 
-        User user = PersonalNoteMother.getDummyUser().note(personalNote1).note(personalNote2).build();
-        User user2 = PersonalNoteMother.getDummyUser2().note(personalNote3).build();
+        User user = UserMother.withoutAnyRelationsAndId().note(personalNote1).note(personalNote2).build();
+        User user2 = UserMother.withoutAnyRelationsAndId().note(personalNote3).build();
 
         personalNote1.setUser(user);
         personalNote2.setUser(user);
         personalNote3.setUser(user2);
 
-        userRepository.saveAndFlush(user);
-        userRepository.saveAndFlush(user2);
+        user = userRepository.save(user);
+        user2 = userRepository.save(user2);
 
         List<PersonalNote> personalNotes = personalNoteRepository
                 .getPersonalNotesByUser_Id(user.getId());
