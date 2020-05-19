@@ -16,7 +16,7 @@ public class LogoutController {
     }
 
     @GetMapping("")
-    public ResponseEntity getPersonalNotes(@RequestBody String jwtToken) {
+    public ResponseEntity getPersonalNotes(@RequestHeader("authorization") String jwtToken) {
         blackListDaoMem.getJwtTokenBlackList().add(jwtToken);
         return ResponseEntity.ok("");
     }
