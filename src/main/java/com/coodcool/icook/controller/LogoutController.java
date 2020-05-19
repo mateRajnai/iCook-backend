@@ -16,9 +16,15 @@ public class LogoutController {
     }
 
     @GetMapping("")
-    public ResponseEntity getPersonalNotes(@RequestHeader("authorization") String jwtToken) {
-        blackListDaoMem.getJwtTokenBlackList().add(jwtToken);
-        return ResponseEntity.ok("");
+    public ResponseEntity getPersonalNotes(@RequestHeader("Authorization") String token) {
+
+            if (token != null && token.startsWith("Bearer ")) {
+                String onlyJwtTokenFromString = token.substring(7);
+                blackListDaoMem.getJwtTokenBlackList().add(onlyJwtTokenFromString);
+                return ResponseEntity.ok("");
+            } else {
+                return ResponseEntity.badRequest().body("Authorization field in header is not correct.");
+            }
     }
 
 }
