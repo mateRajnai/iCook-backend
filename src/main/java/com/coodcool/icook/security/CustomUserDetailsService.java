@@ -1,7 +1,6 @@
 package com.coodcool.icook.security;
 
 import com.coodcool.icook.dao.repository.UserRepository;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,6 +27,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("Username: " + username + " not found"));
 
         return new User(user.getUserName(), user.getPassword(),
-                user.getRoles().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+                user.getRoles().stream().map(RoleEnumGrantedAuthority::new).collect(Collectors.toList()));
     }
 }
