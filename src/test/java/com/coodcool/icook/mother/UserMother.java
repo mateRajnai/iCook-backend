@@ -2,6 +2,8 @@ package com.coodcool.icook.mother;
 
 import com.coodcool.icook.model.*;
 
+import java.util.Arrays;
+
 public class UserMother {
 
     public static User.UserBuilder withoutAnyRelationsAndId() {
@@ -10,7 +12,7 @@ public class UserMother {
                 .firstName("Gordon")
                 .email("gordon@ramsey.com")
                 .password("password")
-                .userType(Role.ADMIN);
+                .roles(Arrays.asList(Role.USER));
     }
 
     public static User.UserBuilder withoutAnyRelationsAndWithCustomId(Long id) {
