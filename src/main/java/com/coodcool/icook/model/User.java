@@ -3,6 +3,8 @@ package com.coodcool.icook.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -21,6 +23,10 @@ public class User {
     private String firstName;
     private String password;
     private String email;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Role userType;
