@@ -26,10 +26,9 @@ public class User {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
-    private List<String> roles = new ArrayList<>();
-
     @Enumerated(EnumType.STRING)
-    private Role userType;
+    private List<Role> roles = new ArrayList<>();
+
 
     @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST})
     @EqualsAndHashCode.Exclude
