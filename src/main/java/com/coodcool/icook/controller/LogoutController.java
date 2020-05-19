@@ -22,9 +22,8 @@ public class LogoutController {
                 String onlyJwtTokenFromString = token.substring(7);
                 blackListDaoMem.getJwtTokenBlackList().add(onlyJwtTokenFromString);
                 return ResponseEntity.ok("");
-            } else {
-                return ResponseEntity.badRequest().body("Authorization field in header is not correct.");
             }
+            return ResponseEntity.badRequest().body("Header is not correct.");
     }
 
 }
