@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import javax.persistence.TableGenerator;
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -20,6 +20,9 @@ public class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private EntityManager entityManager;
 
     @Test
     public void saveSimpleOne() {
@@ -46,6 +49,7 @@ public class UserRepositoryTest {
         List<User> users = userRepository.findAll();
         Long userId = users.get(0).getId();
 
+        entityManager.clear();
         User updatedUser = UserMother
                 .withoutAnyRelationsAndWithCustomId(userId)
                 .userName("nameChanger")
