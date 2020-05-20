@@ -3,6 +3,8 @@ package com.coodcool.icook.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -22,8 +24,11 @@ public class User {
     private String password;
     private String email;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
     @Enumerated(EnumType.STRING)
-    private Role userType;
+    private List<Role> roles = new ArrayList<>();
+
 
     @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST})
     @EqualsAndHashCode.Exclude

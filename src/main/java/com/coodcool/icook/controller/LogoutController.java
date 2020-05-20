@@ -21,6 +21,7 @@ public class LogoutController {
             if (token != null && token.startsWith("Bearer ")) {
                 String onlyJwtTokenFromString = token.substring(7);
                 blackListDaoMem.getJwtTokenBlackList().add(onlyJwtTokenFromString);
+                System.out.println(blackListDaoMem.toString());
                 return ResponseEntity.ok("");
             }
             return ResponseEntity.badRequest().body("Header is not correct.");
