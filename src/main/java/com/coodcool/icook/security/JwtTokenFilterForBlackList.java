@@ -19,20 +19,22 @@ import java.io.IOException;
 
 public class JwtTokenFilterForBlackList extends GenericFilterBean {
 
-    @Autowired
     private JwtTokenBlackListDaoMem blackList;
 
     private JwtTokenServices jwtTokenServices;
 
-    JwtTokenFilterForBlackList(JwtTokenServices jwtTokenServices) {
+    JwtTokenFilterForBlackList(JwtTokenServices jwtTokenServices, JwtTokenBlackListDaoMem blackList) {
         this.jwtTokenServices = jwtTokenServices;
+        this.blackList = blackList;
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String token = jwtTokenServices.getTokenFromRequest((HttpServletRequest) servletRequest);
         //if the token is blacklisted then the filter chain will end
-        if(token != null && !blackList.getJwtTokenBlackList().contains(token)) {
+        if(token != null && blackList.getJwtTokenBlackList().contains(token)) {
+            System.out.println("This token on the blacklist.");
+            return;
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }

@@ -1,10 +1,13 @@
 package com.coodcool.icook.security;
 
 import com.coodcool.icook.dao.implementation.JwtTokenBlackListDaoMem;
+import com.fasterxml.jackson.databind.annotation.JsonAppend;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -12,31 +15,25 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class JwtDoBlackListing extends GenericFilterBean {
+public class JwtDoBlackListing implements LogoutHandler {
 
-    @Autowired
     private JwtTokenBlackListDaoMem blackList;
 
     private JwtTokenServices jwtTokenServices;
 
-    JwtDoBlackListing(JwtTokenServices jwtTokenServices) {
+    JwtDoBlackListing(JwtTokenServices jwtTokenServices, JwtTokenBlackListDaoMem blacklist) {
         this.jwtTokenServices = jwtTokenServices;
+        this.blackList = blacklist;
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String token = jwtTokenServices.getTokenFromRequest((HttpServletRequest) servletRequest);
-        System.out.println("JwtDoBlackListing class ran.");
-        if (token != null && token.startsWith("Bearer ")) {
-            String onlyJwtTokenFromString = token.substring(7);
-            blackList.getJwtTokenBlackList().add(onlyJwtTokenFromString);
-
-            if (logger.isDebugEnabled()) {
-                logger.debug("This token added to blacklist: " + blackList.toString());
-            }
+    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        String token = jwtTokenServices.getTokenFromRequest(request);
+        if (token != null) {
+            blackList.addTokenToBlackList(token);
         }
-        filterChain.doFilter(servletRequest, servletResponse);
     }
 }

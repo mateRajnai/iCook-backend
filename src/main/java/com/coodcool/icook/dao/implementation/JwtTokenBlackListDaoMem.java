@@ -18,4 +18,8 @@ public class JwtTokenBlackListDaoMem {
 
     private List<String> jwtTokenBlackList = new ArrayList<>();
 
+    public void addTokenToBlackList(String token){
+        this.jwtTokenBlackList.add(token);
+    }
+
 }

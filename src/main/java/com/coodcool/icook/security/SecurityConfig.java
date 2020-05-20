@@ -1,5 +1,8 @@
 package com.coodcool.icook.security;
 
+import com.coodcool.icook.dao.implementation.JwtTokenBlackListDaoMem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,9 +18,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenServices jwtTokenServices;
+    private final JwtTokenBlackListDaoMem blacklist;
 
-    public SecurityConfig(JwtTokenServices jwtTokenServices) {
+    public SecurityConfig(JwtTokenServices jwtTokenServices, JwtTokenBlackListDaoMem blacklist) {
         this.jwtTokenServices = jwtTokenServices;
+        this.blacklist = blacklist;
     }
 
     @Bean
@@ -46,10 +51,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/recipe/{id}/personal-note").authenticated()
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JwtTokenFilterForBlackList(jwtTokenServices), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new JwtDoBlackListing(jwtTokenServices), LogoutFilter.class)
-                .requestMatcher(new AntPathRequestMatcher("/logout"))
+                .addFilterBefore(new JwtTokenFilterForBlackList(jwtTokenServices, blacklist), UsernamePasswordAuthenticationFilter.class)
                 .logout()
-                .logoutSuccessUrl("/");
+                    .addLogoutHandler(new JwtDoBlackListing(jwtTokenServices, blacklist))
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/login");
     }
 }
