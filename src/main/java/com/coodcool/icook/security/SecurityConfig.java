@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -46,6 +47,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtTokenFilterForBlackList(jwtTokenServices), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore()
+                .addFilterBefore(new JwtDoBlackListing(jwtTokenServices), LogoutFilter.class)
+                .requestMatcher(new AntPathRequestMatcher("/logout"))
+                .logout()
+                .logoutSuccessUrl("/");
     }
 }
