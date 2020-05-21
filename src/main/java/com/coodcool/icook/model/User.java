@@ -30,7 +30,7 @@ public class User {
     private List<Role> roles = new ArrayList<>();
 
 
-    @OneToOne(mappedBy = "user", cascade = {CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.PERSIST})
     @EqualsAndHashCode.Exclude
     private Address address;
 
