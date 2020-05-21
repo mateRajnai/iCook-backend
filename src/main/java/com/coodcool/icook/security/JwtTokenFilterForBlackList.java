@@ -4,6 +4,7 @@ import com.coodcool.icook.dao.implementation.JwtTokenBlackListDaoMem;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
@@ -34,7 +35,7 @@ public class JwtTokenFilterForBlackList extends GenericFilterBean {
         //if the token is blacklisted then the filter chain will end
         if(token != null && blackList.getJwtTokenBlackList().contains(token)) {
             System.out.println("This token on the blacklist.");
-            return;
+            throw new AuthorizationServiceException("Invalid token (on blacklist)");
         }
         filterChain.doFilter(servletRequest, servletResponse);
     }
