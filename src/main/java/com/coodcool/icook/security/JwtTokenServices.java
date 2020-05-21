@@ -1,5 +1,6 @@
 package com.coodcool.icook.security;
 
+import com.coodcool.icook.model.Role;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -82,9 +83,9 @@ public class JwtTokenServices {
         Claims body = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         String username = body.getSubject();
         List<String> roles = (List<String>) body.get(rolesFieldName);
-        List<SimpleGrantedAuthority> authorities = new LinkedList<>();
+        List<RoleEnumGrantedAuthority> authorities = new LinkedList<>();
         for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
+            authorities.add(new RoleEnumGrantedAuthority(Role.valueOf(role)));
         }
         return new UsernamePasswordAuthenticationToken(username, "", authorities);
     }
