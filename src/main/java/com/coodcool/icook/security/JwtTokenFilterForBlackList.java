@@ -1,14 +1,7 @@
 package com.coodcool.icook.security;
 
 import com.coodcool.icook.dao.implementation.JwtTokenBlackListDaoMem;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AuthorizationServiceException;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
