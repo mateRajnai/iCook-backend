@@ -2,7 +2,6 @@ package com.coodcool.icook.controller;
 
 import com.coodcool.icook.dao.repository.PersonalNoteRepository;
 import com.coodcool.icook.model.PersonalNote;
-import com.coodcool.icook.model.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;

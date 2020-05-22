@@ -1,11 +1,11 @@
 package com.coodcool.icook.security;
 
+import com.coodcool.icook.model.Role;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -28,16 +28,19 @@ public class JwtTokenServices {
 
     private final String rolesFieldName = "roles";
 
+    private final String userIdFieldName = "id";
+
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
     // Creates a JWT token
-    public String createToken(String username, List<String> roles) {
+    public String createToken(String username, List<String> roles, String id) {
         // Add a custom field to the token
         Claims claims = Jwts.claims().setSubject(username);
         claims.put(rolesFieldName, roles);
+        claims.put(userIdFieldName, id);
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -82,9 +85,9 @@ public class JwtTokenServices {
         Claims body = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         String username = body.getSubject();
         List<String> roles = (List<String>) body.get(rolesFieldName);
-        List<SimpleGrantedAuthority> authorities = new LinkedList<>();
+        List<RoleEnumGrantedAuthority> authorities = new LinkedList<>();
         for (String role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role));
+            authorities.add(new RoleEnumGrantedAuthority(Role.valueOf(role)));
         }
         return new UsernamePasswordAuthenticationToken(username, "", authorities);
     }

@@ -10,4 +10,5 @@ public class IcookApplication {
     public static void main(String[] args) {
         SpringApplication.run(IcookApplication.class, args);
     }
+
 }
