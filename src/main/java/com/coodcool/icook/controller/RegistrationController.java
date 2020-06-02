@@ -2,11 +2,13 @@ package com.coodcool.icook.controller;
 
 import com.coodcool.icook.dao.repository.UserRepository;
 import com.coodcool.icook.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/signup")
 @CrossOrigin(origins = "http://localhost:3000")
@@ -28,7 +30,7 @@ public class RegistrationController {
             userRepository.save(user);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             return ResponseEntity.unprocessableEntity().build();
         }
     }

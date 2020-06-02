@@ -2,21 +2,19 @@ package com.coodcool.icook.controller;
 
 import com.coodcool.icook.dao.repository.CommentRepository;
 import com.coodcool.icook.model.Comment;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/recipe/{id}/comments")
 @CrossOrigin(origins = "http://localhost:3000")
 public class CommentController {
 
     private CommentRepository commentRepository;
-
-    public CommentController(CommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
-    }
 
     @GetMapping("")
     public List<Comment> getCommentsBy(@PathVariable("id") String id) {

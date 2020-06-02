@@ -1,6 +1,8 @@
 package com.coodcool.icook.security;
 
 import com.coodcool.icook.dao.implementation.JwtTokenBlackListDaoMem;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -13,16 +15,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+@RequiredArgsConstructor
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenServices jwtTokenServices;
     private final JwtTokenBlackListDaoMem blacklist;
-
-    public SecurityConfig(JwtTokenServices jwtTokenServices, JwtTokenBlackListDaoMem blacklist) {
-        this.jwtTokenServices = jwtTokenServices;
-        this.blacklist = blacklist;
-    }
 
     @Bean
     @Override
