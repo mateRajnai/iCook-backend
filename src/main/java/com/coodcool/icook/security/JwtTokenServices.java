@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
@@ -91,4 +92,14 @@ public class JwtTokenServices {
         }
         return new UsernamePasswordAuthenticationToken(username, "", authorities);
     }
+
+    public Cookie createJwtCookie(String token) {
+        Cookie jwtCookie = new Cookie("jwt", token);
+        jwtCookie.setHttpOnly(true);
+        jwtCookie.setMaxAge((int) validityInMilliseconds / 1000);
+        jwtCookie.setPath("/");
+
+        return jwtCookie;
+    }
+
 }
