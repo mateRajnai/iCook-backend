@@ -4,6 +4,8 @@ import com.coodcool.icook.dao.repository.UserRepository;
 import com.coodcool.icook.model.User;
 import com.coodcool.icook.model.UserCredentials;
 import com.coodcool.icook.security.JwtTokenServices;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -13,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,11 +40,13 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity login(@RequestBody UserCredentials data) {
+    public ResponseEntity login(@RequestBody UserCredentials data, HttpServletResponse response) {
         try {
             String username = data.getUsername();
             // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
-            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, data.getPassword()));
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(username, data.getPassword())
+            );
             List<String> roles = authentication.getAuthorities()
                     .stream()
                     .map(GrantedAuthority::getAuthority)
@@ -50,13 +55,15 @@ public class LoginController {
             String id = user.map(value -> value.getId().toString()).orElse(null);
 
             String token = jwtTokenServices.createToken(username, roles, id);
+            response.addCookie(jwtTokenServices.createJwtCookie(token));
 
             Map<Object, Object> model = new HashMap<>();
             model.put("username", username);
             model.put("roles", roles);
-            model.put("token", token);
             model.put("id", id);
+
             return ResponseEntity.ok(model);
+
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
