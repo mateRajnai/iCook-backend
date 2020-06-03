@@ -20,11 +20,10 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class RegistrationController {
 
-    private final UserRepository userRepository;
     private final RegistrationHandler registrationHandler;
 
     @PostMapping("")
-    public ResponseEntity register(@RequestBody User user, HttpServletResponse response) {
+    public ResponseEntity<Map<Object, Object>> register(@RequestBody User user, HttpServletResponse response) {
         try {
             Map<Object, Object> userData = registrationHandler.handleRegistration(user);
             response.addCookie(registrationHandler.getGeneratedCookie(userData));
@@ -38,13 +37,11 @@ public class RegistrationController {
 
     @PostMapping("/check_username")
     public ResponseEntity<Boolean> checkUsername(@RequestBody String username) {
-        Optional<User> user = userRepository.findByUserName(username);
-        return ResponseEntity.ok(user.isPresent());
+        return ResponseEntity.ok(registrationHandler.checkIfUsernameExists(username));
     }
 
     @PostMapping("/check_email")
     public ResponseEntity<Boolean> checkEmail(@RequestBody String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        return ResponseEntity.ok(user.isPresent());
+        return ResponseEntity.ok(registrationHandler.checkIfEmailRegistered(email));
     }
 }

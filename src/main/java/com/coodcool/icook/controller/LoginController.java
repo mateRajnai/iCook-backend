@@ -24,7 +24,7 @@ public class LoginController {
 
 
     @PostMapping
-    public ResponseEntity login(@RequestBody UserCredentials data, HttpServletResponse response) {
+    public ResponseEntity<Map<Object, Object>> login(@RequestBody UserCredentials data, HttpServletResponse response) {
         try {
             Map<Object, Object> userData = loginHandler.handleLogin(data);
             response.addCookie(loginHandler.generateCookie(userData));
