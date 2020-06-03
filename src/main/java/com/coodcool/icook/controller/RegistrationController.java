@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/signup")
-@CrossOrigin(origins = "http://localhost:3000")
 public class RegistrationController {
 
     private UserRepository userRepository;

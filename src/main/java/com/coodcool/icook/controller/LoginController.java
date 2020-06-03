@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/login")
-@CrossOrigin("http://localhost:3000")
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;

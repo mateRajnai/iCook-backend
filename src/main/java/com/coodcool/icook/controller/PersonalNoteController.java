@@ -9,7 +9,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/recipe/{id}/personal-note")
-@CrossOrigin(origins = "http://localhost:3000")
 public class PersonalNoteController {
 
     private PersonalNoteRepository personalNoteRepository;
