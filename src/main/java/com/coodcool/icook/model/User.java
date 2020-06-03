@@ -19,14 +19,17 @@ public class User {
     @GeneratedValue
     private Long id;
 
+    @Column(unique=true)
     private String userName;
     private String firstName;
     private String password;
+    @Column(unique=true)
     private String email;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     @Enumerated(EnumType.STRING)
+    @EqualsAndHashCode.Exclude
     private List<Role> roles = new ArrayList<>();
 
 
