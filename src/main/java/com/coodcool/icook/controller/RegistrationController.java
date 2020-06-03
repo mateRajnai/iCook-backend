@@ -1,13 +1,10 @@
 package com.coodcool.icook.controller;
 
-import com.coodcool.icook.dao.repository.UserRepository;
 import com.coodcool.icook.model.User;
 import com.coodcool.icook.service.RegistrationHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
