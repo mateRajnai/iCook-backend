@@ -24,7 +24,6 @@ public class LoginController {
         try {
             Map<Object, Object> userData = loginHandler.handleLogin(data);
             response.addCookie(loginHandler.getGeneratedCookie());
-
             return ResponseEntity.ok(userData);
 
         } catch (AuthenticationException e) {

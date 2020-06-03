@@ -2,6 +2,8 @@ package com.coodcool.icook.controller;
 
 import com.coodcool.icook.dao.repository.UserRepository;
 import com.coodcool.icook.model.User;
+import com.coodcool.icook.service.RegistrationHandler;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -11,23 +13,17 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @RestController
 @RequestMapping("/signup")
+@RequiredArgsConstructor
 public class RegistrationController {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-
-    public RegistrationController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
+    private RegistrationHandler registrationHandler;
 
     @PostMapping("")
     public ResponseEntity<String> register(@RequestBody User user) {
         try {
-            String encodedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encodedPassword);
-            userRepository.save(user);
+            registrationHandler.handleRegistration(user);
             return ResponseEntity.ok().build();
+
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.unprocessableEntity().build();
