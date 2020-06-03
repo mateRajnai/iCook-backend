@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/logout")
-@CrossOrigin(origins = "http://localhost:3000")
 public class LogoutController {
 
     private JwtTokenBlackListDaoMem blackListDaoMem;

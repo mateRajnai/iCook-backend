@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .addLogoutHandler(new JwtDoBlackListing(jwtTokenServices, blacklist))
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessHandler((new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)))
-                .and().cors();
+                .and().cors()
+                .and().headers().httpStrictTransportSecurity().disable();
     }
 }

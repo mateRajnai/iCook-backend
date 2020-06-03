@@ -11,7 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/recipe/{id}/comments")
-@CrossOrigin(origins = "http://localhost:3000")
 public class CommentController {
 
     private CommentRepository commentRepository;
