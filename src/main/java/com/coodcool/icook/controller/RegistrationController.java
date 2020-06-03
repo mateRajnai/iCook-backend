@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class RegistrationController {
 
-    private RegistrationHandler registrationHandler;
+    private final RegistrationHandler registrationHandler;
 
     @PostMapping("")
     public ResponseEntity<String> register(@RequestBody User user) {

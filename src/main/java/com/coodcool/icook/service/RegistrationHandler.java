@@ -11,16 +11,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class RegistrationHandler {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
-    private LoginHandler loginHandler;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final LoginHandler loginHandler;
 
-    public  void handleRegistration(User user) {
+    public void handleRegistration(User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
+        System.out.println("After this it saves the user.");
         userRepository.save(user);
         this.doLogin(user.getUserName(), user.getPassword());
-
     }
 
     private void doLogin(String username, String password) {
