@@ -2,10 +2,8 @@ package com.coodcool.icook.controller;
 
 import com.coodcool.icook.dao.repository.UserRepository;
 import com.coodcool.icook.model.User;
-import com.coodcool.icook.model.UserCredentials;
+import com.coodcool.icook.dto.UserCredentials;
 import com.coodcool.icook.security.JwtTokenServices;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
