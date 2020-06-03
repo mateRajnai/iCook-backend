@@ -3,30 +3,33 @@ package com.coodcool.icook.controller;
 import com.coodcool.icook.dao.repository.UserRepository;
 import com.coodcool.icook.model.User;
 import lombok.RequiredArgsConstructor;
+import com.coodcool.icook.service.RegistrationHandler;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
+
 @Slf4j
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/signup")
+@RequiredArgsConstructor
 public class RegistrationController {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final RegistrationHandler registrationHandler;
 
     @PostMapping("")
-    public ResponseEntity<String> register(@RequestBody User user) {
+    public ResponseEntity register(@RequestBody User user, HttpServletResponse response) {
         try {
-            String encodedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encodedPassword);
-            userRepository.save(user);
-            return ResponseEntity.ok().build();
+            Map<Object, Object> userData = registrationHandler.handleRegistration(user);
+            response.addCookie(registrationHandler.getGeneratedCookie(userData));
+            return ResponseEntity.ok(userData);
+
         } catch (Exception e) {
             log.error(e.getMessage());
             return ResponseEntity.unprocessableEntity().build();
