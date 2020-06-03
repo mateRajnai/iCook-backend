@@ -9,6 +9,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,7 +24,8 @@ public class LoginController {
     public ResponseEntity login(@RequestBody UserCredentials data, HttpServletResponse response) {
         try {
             Map<Object, Object> userData = loginHandler.handleLogin(data);
-            response.addCookie(loginHandler.getGeneratedCookie());
+            response.addCookie(loginHandler.generateCookie(userData));
+
             return ResponseEntity.ok(userData);
 
         } catch (AuthenticationException e) {

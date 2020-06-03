@@ -23,8 +23,6 @@ public class LoginHandler {
     private final JwtTokenServices jwtTokenServices;
     private final UserRepository userRepository;
 
-    private Cookie generatedCookie;
-
     public Map<Object, Object> handleLogin(UserCredentials data) {
         String username = data.getUsername();
         // authenticationManager.authenticate calls loadUserByUsername in CustomUserDetailsService
@@ -43,17 +41,14 @@ public class LoginHandler {
         model.put("roles", roles);
         model.put("id", id);
 
-        generateCookie(username, roles, id);
-
         return model;
     }
 
-    public void generateCookie(String username, List<String> roles, String id) {
-        String token = jwtTokenServices.createToken(username, roles, id);
-        generatedCookie = jwtTokenServices.createJwtCookie(token);
+    public Cookie generateCookie(Map<Object, Object> userData) {
+        String token = jwtTokenServices.createToken(userData.get("username").toString(),
+                (List<String>) userData.get("roles"),
+                userData.get("id").toString());
+        return jwtTokenServices.createJwtCookie(token);
     }
 
-    public Cookie getGeneratedCookie() {
-        return generatedCookie;
-    }
 }

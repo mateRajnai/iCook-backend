@@ -22,7 +22,7 @@ public class RegistrationController {
     public ResponseEntity register(@RequestBody User user, HttpServletResponse response) {
         try {
             Map<Object, Object> userData = registrationHandler.handleRegistration(user);
-            response.addCookie(registrationHandler.getGeneratedCookie());
+            response.addCookie(registrationHandler.getGeneratedCookie(userData));
             return ResponseEntity.ok(userData);
 
         } catch (Exception e) {

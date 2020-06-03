@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.Cookie;
+import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -27,8 +28,8 @@ public class RegistrationHandler {
         return this.loginHandler.handleLogin(userCredentials);
     }
 
-    public Cookie getGeneratedCookie() {
-        return this.loginHandler.getGeneratedCookie();
+    public Cookie getGeneratedCookie(Map<Object, Object> userData) {
+        return this.loginHandler.generateCookie(userData);
     }
 
 }
