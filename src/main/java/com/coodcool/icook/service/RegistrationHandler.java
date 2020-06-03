@@ -4,27 +4,31 @@ import com.coodcool.icook.dao.repository.UserRepository;
 import com.coodcool.icook.model.User;
 import com.coodcool.icook.model.UserCredentials;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import javax.servlet.http.Cookie;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
 public class RegistrationHandler {
 
+    private PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final LoginHandler loginHandler;
 
-    public void handleRegistration(User user) {
+    private final LoginHandler loginHandler;
+    public Map<Object, Object> handleRegistration(User user) {
+        UserCredentials userCredentials = new UserCredentials(user.getUserName(), user.getPassword());
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-        System.out.println("After this it saves the user.");
-        userRepository.save(user);
-        this.doLogin(user.getUserName(), user.getPassword());
+        userRepository.saveAndFlush(user);
+        return this.loginHandler.handleLogin(userCredentials);
     }
 
-    private void doLogin(String username, String password) {
-        loginHandler.handleLogin(new UserCredentials(username, password));
+    public Cookie getGeneratedCookie() {
+        return this.loginHandler.getGeneratedCookie();
     }
 
 }

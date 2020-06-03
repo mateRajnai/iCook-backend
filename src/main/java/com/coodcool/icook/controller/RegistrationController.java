@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("/signup")
@@ -16,10 +19,11 @@ public class RegistrationController {
     private final RegistrationHandler registrationHandler;
 
     @PostMapping("")
-    public ResponseEntity<String> register(@RequestBody User user) {
+    public ResponseEntity register(@RequestBody User user, HttpServletResponse response) {
         try {
-            registrationHandler.handleRegistration(user);
-            return ResponseEntity.ok().build();
+            Map<Object, Object> userData = registrationHandler.handleRegistration(user);
+            response.addCookie(registrationHandler.getGeneratedCookie());
+            return ResponseEntity.ok(userData);
 
         } catch (Exception e) {
             log.error(e.getMessage());
