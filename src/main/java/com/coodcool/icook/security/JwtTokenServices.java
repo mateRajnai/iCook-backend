@@ -100,6 +100,23 @@ public class JwtTokenServices {
         return jwtCookie;
     }
 
+    public Cookie invalidateJwtCookie(HttpServletRequest req) {
+        Cookie[] cookies = req.getCookies();
+        Cookie jwtCookie = null;
+        if (cookies != null) jwtCookie = Arrays.stream(cookies)
+                .filter((cookie) -> "jwt".equals(cookie.getName()))
+                .findFirst()
+                .map((cookie) -> {
+                    cookie.setValue(null);
+                    cookie.setHttpOnly(true);
+                    cookie.setMaxAge(0);
+                    return cookie;
+                })
+                .orElse(null);
+
+        return jwtCookie;
+    }
+
     public String getUsernameFromToken(String token) {
         Claims body = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
         return body.getSubject();
