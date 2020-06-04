@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").permitAll()
                 .antMatchers("/logout").permitAll()
                 .antMatchers(HttpMethod.GET, "/recipe/{id}/comments").permitAll()
-                .antMatchers(HttpMethod.POST, "/recipe/{id}/comments").authenticated()
+                .antMatchers(HttpMethod.POST, "/recipe/{id}/comments/{userId}").authenticated()
                 .antMatchers(HttpMethod.GET, "/favorites").authenticated()
                 .antMatchers(HttpMethod.POST, "/favorites").authenticated()
                 .antMatchers(HttpMethod.DELETE, "/favorites/{id}").authenticated()

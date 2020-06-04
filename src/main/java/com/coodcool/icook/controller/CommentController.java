@@ -1,11 +1,11 @@
 package com.coodcool.icook.controller;
 
-import com.coodcool.icook.dao.repository.CommentRepository;
 import com.coodcool.icook.model.Comment;
+import com.coodcool.icook.service.CommentHandler;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,19 +13,16 @@ import java.util.List;
 @RequestMapping("/recipe/{id}/comments")
 public class CommentController {
 
-    private CommentRepository commentRepository;
+    private CommentHandler commentHandler;
 
     @GetMapping("")
-    public List<Comment> getCommentsBy(@PathVariable("id") String id) {
-        return this.commentRepository.findAllByRecipeIdOrderBySubmissionTimeDesc(id);
+    public ResponseEntity<List<Comment>> getCommentsBy(@PathVariable("id") String id) {
+        return ResponseEntity.ok(commentHandler.handleGettingComments(id));
     }
 
-    @PostMapping("")
-    public Comment addComment(@RequestBody Comment comment) {
-        comment.setSubmissionTime(LocalDateTime.now());
-        this.commentRepository.save(comment);
-        Long commentId = comment.getId();
-        return this.commentRepository.findCommentById(commentId);
+    @PostMapping("/{userId}")
+    public ResponseEntity<Comment> addComment(@RequestBody Comment comment, @PathVariable(value = "userId") String userId) {
+        return ResponseEntity.ok(commentHandler.handleAddingComment(comment, userId));
     }
 
 }
