@@ -24,7 +24,8 @@ public class CommentHandler {
 
     public Comment handleAddingComment(Comment comment, String userId) {
         comment.setSubmissionTime(LocalDateTime.now());
-        User user = userRepository.findById(Long.valueOf(userId)).orElseThrow();
+        User user = userRepository.findById(Long.valueOf(userId))
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
         comment.setUser(user);
         this.commentRepository.save(comment);
         Long commentId = comment.getId();

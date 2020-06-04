@@ -51,6 +51,7 @@ public class User {
     @EqualsAndHashCode.Exclude
     Set<FavoriteRecipe> favorites;
 
+    @JsonIgnore
     @ToString.Exclude
     @Singular
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
