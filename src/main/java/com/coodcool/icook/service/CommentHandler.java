@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component
@@ -15,6 +16,11 @@ public class CommentHandler {
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
 
+    public List<Comment> handleGettingComments(String id) {
+        return this.commentRepository.findAllByRecipeIdOrderBySubmissionTimeDesc(id);
+
+    }
+
     public Comment handleAddingComment(Comment comment) {
         comment.setSubmissionTime(LocalDateTime.now());
         this.commentRepository.save(comment);
@@ -22,5 +28,6 @@ public class CommentHandler {
         return this.commentRepository.findCommentById(commentId);
 
     }
+
 
 }
