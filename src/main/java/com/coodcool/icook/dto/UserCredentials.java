@@ -1,4 +1,4 @@
-package com.coodcool.icook.model;
+package com.coodcool.icook.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

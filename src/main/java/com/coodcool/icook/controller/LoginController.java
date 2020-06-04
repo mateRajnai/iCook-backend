@@ -1,6 +1,9 @@
 package com.coodcool.icook.controller;
 
-import com.coodcool.icook.model.UserCredentials;
+import com.coodcool.icook.dao.repository.UserRepository;
+import com.coodcool.icook.model.User;
+import com.coodcool.icook.dto.UserCredentials;
+import com.coodcool.icook.security.JwtTokenServices;
 import com.coodcool.icook.service.LoginHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +24,7 @@ public class LoginController {
 
 
     @PostMapping
-    public ResponseEntity login(@RequestBody UserCredentials data, HttpServletResponse response) {
+    public ResponseEntity<Map<Object, Object>> login(@RequestBody UserCredentials data, HttpServletResponse response) {
         try {
             Map<Object, Object> userData = loginHandler.handleLogin(data);
             response.addCookie(loginHandler.generateCookie(userData));

@@ -2,7 +2,7 @@ package com.coodcool.icook.service;
 
 import com.coodcool.icook.dao.repository.UserRepository;
 import com.coodcool.icook.model.User;
-import com.coodcool.icook.model.UserCredentials;
+import com.coodcool.icook.dto.UserCredentials;
 import com.coodcool.icook.security.JwtTokenServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
