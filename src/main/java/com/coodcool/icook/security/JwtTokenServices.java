@@ -51,7 +51,7 @@ public class JwtTokenServices {
                 .compact();
     }
 
-    String getTokenFromRequest(HttpServletRequest req) {
+    public String getTokenFromRequest(HttpServletRequest req) {
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             return Arrays.stream(cookies)
@@ -98,6 +98,11 @@ public class JwtTokenServices {
         jwtCookie.setPath("/");
 
         return jwtCookie;
+    }
+
+    public String getUsernameFromToken(String token) {
+        Claims body = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        return body.getSubject();
     }
 
 }
