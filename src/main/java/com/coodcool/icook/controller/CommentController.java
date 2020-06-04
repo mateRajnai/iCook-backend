@@ -2,6 +2,7 @@ package com.coodcool.icook.controller;
 
 import com.coodcool.icook.dao.repository.CommentRepository;
 import com.coodcool.icook.model.Comment;
+import com.coodcool.icook.service.CommentHandler;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.util.List;
 public class CommentController {
 
     private CommentRepository commentRepository;
+    private CommentHandler commentHandler;
 
     @GetMapping("")
     public List<Comment> getCommentsBy(@PathVariable("id") String id) {
@@ -22,10 +24,7 @@ public class CommentController {
 
     @PostMapping("")
     public Comment addComment(@RequestBody Comment comment) {
-        comment.setSubmissionTime(LocalDateTime.now());
-        this.commentRepository.save(comment);
-        Long commentId = comment.getId();
-        return this.commentRepository.findCommentById(commentId);
+        return commentHandler.handleAddingComment(comment);
     }
 
 }
