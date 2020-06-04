@@ -15,7 +15,7 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
-public class PersonalNoteHandler {
+public class PersonalNoteService {
 
     private final PersonalNoteRepository personalNotes;
     private final UserRepository users;

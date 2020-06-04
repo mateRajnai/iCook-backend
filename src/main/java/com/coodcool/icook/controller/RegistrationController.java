@@ -1,15 +1,11 @@
 package com.coodcool.icook.controller;
 
-import com.coodcool.icook.dao.repository.UserRepository;
 import com.coodcool.icook.model.User;
 import lombok.RequiredArgsConstructor;
-import com.coodcool.icook.service.RegistrationHandler;
-import lombok.RequiredArgsConstructor;
+import com.coodcool.icook.service.RegistrationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
@@ -20,13 +16,13 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class RegistrationController {
 
-    private final RegistrationHandler registrationHandler;
+    private final RegistrationService registrationService;
 
     @PostMapping("")
     public ResponseEntity<Map<Object, Object>> register(@RequestBody User user, HttpServletResponse response) {
         try {
-            Map<Object, Object> userData = registrationHandler.handleRegistration(user);
-            response.addCookie(registrationHandler.getGeneratedCookie(userData));
+            Map<Object, Object> userData = registrationService.handleRegistration(user);
+            response.addCookie(registrationService.getGeneratedCookie(userData));
             return ResponseEntity.ok(userData);
 
         } catch (Exception e) {
@@ -37,11 +33,11 @@ public class RegistrationController {
 
     @PostMapping("/check_username")
     public ResponseEntity<Boolean> checkUsername(@RequestBody String username) {
-        return ResponseEntity.ok(registrationHandler.checkIfUsernameExists(username));
+        return ResponseEntity.ok(registrationService.checkIfUsernameExists(username));
     }
 
     @PostMapping("/check_email")
     public ResponseEntity<Boolean> checkEmail(@RequestBody String email) {
-        return ResponseEntity.ok(registrationHandler.checkIfEmailRegistered(email));
+        return ResponseEntity.ok(registrationService.checkIfEmailRegistered(email));
     }
 }

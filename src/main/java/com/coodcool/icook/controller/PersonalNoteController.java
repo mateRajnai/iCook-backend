@@ -1,7 +1,7 @@
 package com.coodcool.icook.controller;
 
 import com.coodcool.icook.model.PersonalNote;
-import com.coodcool.icook.service.PersonalNoteHandler;
+import com.coodcool.icook.service.PersonalNoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,16 +14,16 @@ import java.util.List;
 @RequestMapping("/recipe/{id}/personal-note")
 public class PersonalNoteController {
 
-    private final PersonalNoteHandler personalNoteHandler;
+    private final PersonalNoteService personalNoteService;
 
     @GetMapping("")
     public ResponseEntity<List<PersonalNote>> getPersonalNotes(@PathVariable("id") String id, HttpServletRequest request) {
-        return ResponseEntity.ok(this.personalNoteHandler.getPersonalNoteByRecipeId(id, request));
+        return ResponseEntity.ok(this.personalNoteService.getPersonalNoteByRecipeId(id, request));
     }
 
     @PostMapping("")
     public ResponseEntity<PersonalNote> createPersonalNote(@RequestBody PersonalNote personalNote, HttpServletRequest request) {
-        return ResponseEntity.ok(this.personalNoteHandler.addPersonalNote(personalNote, request));
+        return ResponseEntity.ok(this.personalNoteService.addPersonalNote(personalNote, request));
     }
 
 }

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
-public class LoginHandler {
+public class LoginService {
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenServices jwtTokenServices;

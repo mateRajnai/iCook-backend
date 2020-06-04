@@ -13,7 +13,7 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
-public class CommentHandler {
+public class CommentService {
 
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
