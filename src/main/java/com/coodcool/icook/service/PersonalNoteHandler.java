@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
@@ -39,7 +40,7 @@ public class PersonalNoteHandler {
         personalNote.setSubmissionTime(LocalDateTime.now());
         personalNote.setUser(user);
         this.personalNotes.save(personalNote);
-
+        user.setNotes(Set.of(personalNote));
         Long personalNoteId = personalNote.getId();
 
         return this.personalNotes.findPersonalNoteById(personalNoteId);
