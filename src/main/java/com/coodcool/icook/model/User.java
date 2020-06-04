@@ -1,5 +1,6 @@
 package com.coodcool.icook.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -37,6 +38,7 @@ public class User {
     @EqualsAndHashCode.Exclude
     private Address address;
 
+    @JsonIgnore
     @ToString.Exclude
     @Singular
     @OneToMany(mappedBy = "user", cascade = {CascadeType.PERSIST})
