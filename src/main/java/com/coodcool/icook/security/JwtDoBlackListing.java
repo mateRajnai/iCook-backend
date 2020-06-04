@@ -24,5 +24,6 @@ public class JwtDoBlackListing implements LogoutHandler {
         if (token != null) {
             blackList.addTokenToBlackList(token);
         }
+        response.addCookie(jwtTokenServices.invalidateJwtCookie(request));
     }
 }
