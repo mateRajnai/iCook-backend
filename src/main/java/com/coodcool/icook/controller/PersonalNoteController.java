@@ -1,37 +1,29 @@
 package com.coodcool.icook.controller;
 
-import com.coodcool.icook.dao.repository.PersonalNoteRepository;
 import com.coodcool.icook.model.PersonalNote;
-import com.coodcool.icook.model.User;
+import com.coodcool.icook.service.PersonalNoteService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/recipe/{id}/personal-note")
-@CrossOrigin(origins = "https://icook.netlify.app")
 public class PersonalNoteController {
 
-    private PersonalNoteRepository personalNoteRepository;
-
-    public PersonalNoteController(PersonalNoteRepository personalNoteRepository) {
-        this.personalNoteRepository = personalNoteRepository;
-    }
-
+    private final PersonalNoteService personalNoteService;
 
     @GetMapping("")
-    public List<PersonalNote> getPersonalNotes(@PathVariable("id") String id) {
-        return this.personalNoteRepository.getAllByRecipeId(id);
+    public ResponseEntity<List<PersonalNote>> getPersonalNotes(@PathVariable("id") String id, HttpServletRequest request) {
+        return ResponseEntity.ok(this.personalNoteService.getPersonalNoteByRecipeId(id, request));
     }
 
     @PostMapping("")
-    public PersonalNote createPersonalNote(@RequestBody PersonalNote personalNote ) {
-        personalNote.setSubmissionTime(LocalDateTime.now());
-        this.personalNoteRepository.save(personalNote);
-        Long personalNoteId = personalNote.getId();
-
-        return this.personalNoteRepository.findPersonalNoteById(personalNoteId);
+    public ResponseEntity<PersonalNote> createPersonalNote(@RequestBody PersonalNote personalNote, HttpServletRequest request) {
+        return ResponseEntity.ok(this.personalNoteService.addPersonalNote(personalNote, request));
     }
 
 }

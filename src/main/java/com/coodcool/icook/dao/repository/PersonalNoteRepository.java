@@ -12,6 +12,8 @@ public interface PersonalNoteRepository extends JpaRepository<PersonalNote, Long
 
     List<PersonalNote> getAllByRecipeId(String id);
 
+    List<PersonalNote> getAllByRecipeIdAndUser(String id, User user);
+
     PersonalNote findPersonalNoteById(long id);
 
 }

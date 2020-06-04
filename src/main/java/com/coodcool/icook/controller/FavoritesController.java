@@ -2,33 +2,34 @@ package com.coodcool.icook.controller;
 
 import com.coodcool.icook.dao.repository.FavoriteRecipeRepository;
 import com.coodcool.icook.model.FavoriteRecipe;
+import com.coodcool.icook.service.BookmarkService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/favorites")
-@CrossOrigin(origins = "https://icook.netlify.app")
 public class FavoritesController {
 
-    private FavoriteRecipeRepository favoriteRecipeRepository;
-
-    public FavoritesController(FavoriteRecipeRepository favoriteRecipeRepository) {
-        this.favoriteRecipeRepository = favoriteRecipeRepository;
-    }
+    private final BookmarkService bookmarkService;
 
     @GetMapping("")
-    public List<FavoriteRecipe> getFavoriteRecipes() {
-        return this.favoriteRecipeRepository.findAll();
+    public ResponseEntity<List<FavoriteRecipe>> getFavoriteRecipes(HttpServletRequest req) {
+        return ResponseEntity.ok(bookmarkService.getAllFavoritesOfUser(req));
     }
 
     @PostMapping("")
-    public FavoriteRecipe saveFavoriteRecipe(@RequestBody FavoriteRecipe favoriteRecipe) {
-       return this.favoriteRecipeRepository.save(favoriteRecipe);
+    public ResponseEntity<FavoriteRecipe> saveFavoriteRecipe(@RequestBody FavoriteRecipe favoriteRecipe, HttpServletRequest req) {
+       return ResponseEntity.ok(bookmarkService.saveFavoriteRecipe(favoriteRecipe, req));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteFavoriteRecipe(@PathVariable(value="id") Long id) {
-        this.favoriteRecipeRepository.deleteById(id);
+    public ResponseEntity<String> deleteFavoriteRecipe(@PathVariable(value="id") Long id, HttpServletRequest req) {
+        bookmarkService.deleteFavoriteRecipeBy(id, req);
+        return ResponseEntity.ok().build();
     }
 }

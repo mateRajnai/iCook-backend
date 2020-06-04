@@ -1,35 +1,28 @@
 package com.coodcool.icook.controller;
 
-import com.coodcool.icook.dao.repository.CommentRepository;
 import com.coodcool.icook.model.Comment;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.coodcool.icook.service.CommentService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/recipe/{id}/comments")
-@CrossOrigin(origins = "https://icook.netlify.app")
 public class CommentController {
 
-    private CommentRepository commentRepository;
-
-    public CommentController(CommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
-    }
+    private CommentService commentService;
 
     @GetMapping("")
-    public List<Comment> getCommentsBy(@PathVariable("id") String id) {
-        return this.commentRepository.findAllByRecipeIdOrderBySubmissionTimeDesc(id);
+    public ResponseEntity<List<Comment>> getCommentsBy(@PathVariable("id") String id) {
+        return ResponseEntity.ok(commentService.handleGettingComments(id));
     }
 
-    @PostMapping("")
-    public Comment addComment(@RequestBody Comment comment) {
-        comment.setSubmissionTime(LocalDateTime.now());
-        this.commentRepository.save(comment);
-        Long commentId = comment.getId();
-        return this.commentRepository.findCommentById(commentId);
+    @PostMapping("/{userId}")
+    public ResponseEntity<Comment> addComment(@RequestBody Comment comment, @PathVariable(value = "userId") String userId) {
+        return ResponseEntity.ok(commentService.handleAddingComment(comment, userId));
     }
 
 }

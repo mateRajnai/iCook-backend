@@ -23,7 +23,7 @@ public class Address {
     private String address;
     private String zipCode;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "address", cascade = CascadeType.PERSIST)
     private User user;
 
 
