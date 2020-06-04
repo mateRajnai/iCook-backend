@@ -20,9 +20,9 @@ public class CommentController {
         return ResponseEntity.ok(commentHandler.handleGettingComments(id));
     }
 
-    @PostMapping("")
-    public ResponseEntity<Comment> addComment(@RequestBody Comment comment) {
-        return ResponseEntity.ok(commentHandler.handleAddingComment(comment));
+    @PostMapping("/{userId}")
+    public ResponseEntity<Comment> addComment(@RequestBody Comment comment, @PathVariable(value = "userId") String userId) {
+        return ResponseEntity.ok(commentHandler.handleAddingComment(comment, userId));
     }
 
 }
