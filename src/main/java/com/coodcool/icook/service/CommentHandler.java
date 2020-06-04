@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @RequiredArgsConstructor
 @Component
@@ -28,6 +29,7 @@ public class CommentHandler {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         comment.setUser(user);
         this.commentRepository.save(comment);
+        user.setComments(Set.of(comment));
         Long commentId = comment.getId();
         return this.commentRepository.findCommentById(commentId);
 
