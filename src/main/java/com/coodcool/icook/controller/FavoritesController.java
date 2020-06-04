@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,17 +18,18 @@ public class FavoritesController {
     private final BookmarkService bookmarkService;
 
     @GetMapping("")
-    public ResponseEntity<List<FavoriteRecipe>> getFavoriteRecipes() {
-        return ResponseEntity.ok(bookmarkService.getAllFavorites());
+    public ResponseEntity<List<FavoriteRecipe>> getFavoriteRecipes(HttpServletRequest req) {
+        return ResponseEntity.ok(bookmarkService.getAllFavoritesOfUser(req));
     }
 
     @PostMapping("")
-    public ResponseEntity<FavoriteRecipe> saveFavoriteRecipe(@RequestBody FavoriteRecipe favoriteRecipe) {
-       return ResponseEntity.ok(bookmarkService.saveFavoriteRecipe(favoriteRecipe));
+    public ResponseEntity<FavoriteRecipe> saveFavoriteRecipe(@RequestBody FavoriteRecipe favoriteRecipe, HttpServletRequest req) {
+       return ResponseEntity.ok(bookmarkService.saveFavoriteRecipe(favoriteRecipe, req));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteFavoriteRecipe(@PathVariable(value="id") Long id) {
-        bookmarkService.deleteFavoriteRecipeBy(id);
+    public ResponseEntity<String> deleteFavoriteRecipe(@PathVariable(value="id") Long id, HttpServletRequest req) {
+        bookmarkService.deleteFavoriteRecipeBy(id, req);
+        return ResponseEntity.ok().build();
     }
 }

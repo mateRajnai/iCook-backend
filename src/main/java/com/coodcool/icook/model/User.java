@@ -64,4 +64,12 @@ public class User {
     public void addPersonalNote(PersonalNote personalNote) {
         notes.add(personalNote);
     }
+
+    public boolean addFavoriteRecipe(FavoriteRecipe favoriteRecipe) {
+        return favorites.add(favoriteRecipe);
+    }
+
+    public boolean removeFavoriteRecipe(FavoriteRecipe favoriteRecipe) {
+        return favorites.remove(favoriteRecipe);
+    }
 }
