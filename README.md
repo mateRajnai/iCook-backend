@@ -26,3 +26,17 @@ There are some planned features:
 ## Prerequisites
   - Java 11
   - Maven 3.6.0
+
+## Used technologies
+  - H2database - version: 1.4.200
+  - PostgreSQL - version: 42.2.11
+  - JSON-Web-Token - version: 0.9.1
+  - Project Lombok - Lombok - version: 1.18.12
+  - Spring Framework - Spring boot devtools - version: 2.2.6.RELEASE
+  - Spring Framework - Spring boot starter data jpa - version: 2.2.6.RELEASE
+  - Spring Framework - Spring boot starter security - version: 2.2.6.RELEASE
+  - Spring Framework - Spring boot starter test - version: 2.2.6.RELEASE
+  - Spring Framework - Spring boot starter web - version: 2.2.6.RELEASE
+  
+## Copyright and license 
+Code and documentation copyright 2020 the iCook contributors. Code released under the Creative Commons (CC0 1.0 Universal) License.
