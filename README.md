@@ -38,5 +38,8 @@ There are some planned features:
   - Spring Framework - Spring boot starter test - version: 2.2.6.RELEASE
   - Spring Framework - Spring boot starter web - version: 2.2.6.RELEASE
   
+## You can take a look at the frontend repository:
+https://github.com/mateRajnai/iCook/
+
 ## Copyright and license 
 Code and documentation copyright 2020 the iCook contributors. Code released under the Creative Commons (CC0 1.0 Universal) License.
