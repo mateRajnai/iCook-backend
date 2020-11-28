@@ -38,8 +38,12 @@ There are some planned features:
   - Spring Framework - Spring boot starter test - version: 2.2.6.RELEASE
   - Spring Framework - Spring boot starter web - version: 2.2.6.RELEASE
   
+
+## Released version:
+You can try out the application: https://icook.netlify.app/
+
 ## You can take a look at the frontend repository:
-https://github.com/mateRajnai/iCook/
+https://github.com/mateRajnai/iCook-frontend
 
 ## Copyright and license 
 Code and documentation copyright 2020 the iCook contributors. Code released under the Creative Commons (CC0 1.0 Universal) License.
