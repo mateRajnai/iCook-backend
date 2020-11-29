@@ -40,7 +40,7 @@ There are some planned features:
   
 
 ## Released version:
-You can try out the application: https://icook.netlify.app/
+You can try out the application: https://icoook.netlify.app/
 
 ## You can take a look at the frontend repository:
 https://github.com/mateRajnai/iCook-frontend
