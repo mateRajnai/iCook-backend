@@ -30,7 +30,7 @@ public class CorsConfigurer {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("https://icook.netlify.app")
+                        .allowedOrigins("https://icoook.netlify.app")
                         .allowCredentials(true)
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
             }
