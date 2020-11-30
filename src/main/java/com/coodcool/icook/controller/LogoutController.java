@@ -14,7 +14,7 @@ public class LogoutController {
         this.blackListDaoMem = blackListDaoMem;
     }
 
-    @GetMapping("")
+    @PostMapping("")
     public ResponseEntity getPersonalNotes(@RequestHeader("Authorization") String token) {
 
             if (token != null && token.startsWith("Bearer ")) {
