@@ -3,6 +3,7 @@ package com.coodcool.icook.controller;
 import com.coodcool.icook.dto.UserCredentials;
 import com.coodcool.icook.service.LoginService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
@@ -23,7 +24,7 @@ public class LoginController {
     public ResponseEntity<Map<Object, Object>> login(@RequestBody UserCredentials data, HttpServletResponse response) {
         try {
             Map<Object, Object> userData = loginService.handleLogin(data);
-            response.addCookie(loginService.generateCookie(userData));
+            response.addHeader(HttpHeaders.SET_COOKIE, loginService.generateCookie(userData).toString());
 
             return ResponseEntity.ok(userData);
 

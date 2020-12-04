@@ -4,6 +4,7 @@ import com.coodcool.icook.model.Role;
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -91,13 +92,14 @@ public class JwtTokenServices {
         return new UsernamePasswordAuthenticationToken(username, "", authorities);
     }
 
-    public Cookie createJwtCookie(String token) {
-        Cookie jwtCookie = new Cookie("jwt", token);
-        jwtCookie.setHttpOnly(true);
-        jwtCookie.setMaxAge((int) validityInMilliseconds / 1000);
-        jwtCookie.setPath("/");
-
-        return jwtCookie;
+    public ResponseCookie createJwtCookie(String token) {
+        return ResponseCookie.from("jwt", token)
+                .httpOnly(true)
+                .maxAge((int) validityInMilliseconds / 1000)
+                .path("/")
+                .sameSite("None")
+                .secure(true)
+                .build();
     }
 
     public Cookie invalidateJwtCookie(HttpServletRequest req) {

@@ -4,6 +4,7 @@ import com.coodcool.icook.model.User;
 import lombok.RequiredArgsConstructor;
 import com.coodcool.icook.service.RegistrationService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,8 @@ public class RegistrationController {
     public ResponseEntity<Map<Object, Object>> register(@RequestBody User user, HttpServletResponse response) {
         try {
             Map<Object, Object> userData = registrationService.handleRegistration(user);
-            response.addCookie(registrationService.getGeneratedCookie(userData));
+            response.addHeader(HttpHeaders.SET_COOKIE, registrationService.getGeneratedCookie(userData).toString());
+            System.out.println(response.toString());
             return ResponseEntity.ok(userData);
 
         } catch (Exception e) {
