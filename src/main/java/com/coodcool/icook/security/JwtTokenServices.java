@@ -93,15 +93,13 @@ public class JwtTokenServices {
     }
 
     public ResponseCookie createJwtCookie(String token) {
-        ResponseCookie jwtResponseCookie = ResponseCookie.from("jwt", token)
+        return ResponseCookie.from("jwt", token)
                 .httpOnly(true)
                 .maxAge((int) validityInMilliseconds / 1000)
                 .path("/")
                 .sameSite("None")
                 .secure(false)
                 .build();
-
-        return jwtResponseCookie;
     }
 
     public Cookie invalidateJwtCookie(HttpServletRequest req) {
