@@ -98,7 +98,7 @@ public class JwtTokenServices {
                 .maxAge((int) validityInMilliseconds / 1000)
                 .path("/")
                 .sameSite("None")
-                .secure(false)
+                .secure(true)
                 .build();
     }
 
