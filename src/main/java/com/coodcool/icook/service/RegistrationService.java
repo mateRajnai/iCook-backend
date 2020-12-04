@@ -5,6 +5,7 @@ import com.coodcool.icook.dto.UserCredentials;
 import com.coodcool.icook.model.User;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -28,7 +29,7 @@ public class RegistrationService {
         return this.loginService.handleLogin(userCredentials);
     }
 
-    public Cookie getGeneratedCookie(Map<Object, Object> userData) {
+    public ResponseCookie getGeneratedCookie(Map<Object, Object> userData) {
         return this.loginService.generateCookie(userData);
     }
 

@@ -5,6 +5,7 @@ import com.coodcool.icook.model.User;
 import com.coodcool.icook.dto.UserCredentials;
 import com.coodcool.icook.security.JwtTokenServices;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -44,7 +45,7 @@ public class LoginService {
         return model;
     }
 
-    public Cookie generateCookie(Map<Object, Object> userData) {
+    public ResponseCookie generateCookie(Map<Object, Object> userData) {
         String token = jwtTokenServices.createToken(userData.get("username").toString(),
                 (List<String>) userData.get("roles"),
                 userData.get("id").toString());
